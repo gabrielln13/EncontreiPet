@@ -67,7 +67,7 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                                           size: 40,
                                           color: Colors.grey[100],
                                         ),
-                                        Text(
+                                        Text (
                                           "Adicionar",
                                           style: TextStyle(
                                             color: Colors.grey[100]
