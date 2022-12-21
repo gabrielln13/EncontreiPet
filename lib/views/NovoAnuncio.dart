@@ -1,6 +1,7 @@
 import 'package:encontrei_pet/views/widgets/BotaoCustomizado.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 class NovoAnuncio extends StatefulWidget {
   const NovoAnuncio({Key? key}) : super(key: key);
@@ -14,8 +15,15 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
   final List<File> _listaImagens = [];
   final _formKey = GlobalKey<FormState>();
 
-  _selecionarImagemGaleria() {
+  _selecionarImagemGaleria() async{
 
+    dynamic imagemSelecionada = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if(imagemSelecionada != null){
+      setState(() {
+        _listaImagens.add(imagemSelecionada);
+      });
+    }
   }
 
   @override
