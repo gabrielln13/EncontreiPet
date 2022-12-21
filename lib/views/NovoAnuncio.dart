@@ -22,7 +22,7 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text ("Novo Anúncio"),
+        title: Text("Novo Anúncio"),
       ),
       body: SingleChildScrollView(
         child: Container(
