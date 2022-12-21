@@ -1,0 +1,24 @@
+import 'package:encontrei_pet/RouteGenarator.dart';
+import 'package:encontrei_pet/views/Anuncios.dart';
+import 'package:encontrei_pet/views/Login.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+final ThemeData temaPadrao = ThemeData(
+    colorScheme: ColorScheme.fromSwatch().copyWith(
+        primary: Colors.black12,
+        secondary: Colors.black12
+));
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MaterialApp(
+    title: "Encontrei Pet",
+    home: Anuncios(),
+    theme: temaPadrao,
+    initialRoute: "/",
+    onGenerateRoute: RouteGenerator.generateRoute,
+    debugShowCheckedModeBanner: false,
+  ));
+}

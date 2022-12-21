@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "578631435741",
+    "project_id": "encontreipet",
+    "storage_bucket": "encontreipet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:578631435741:android:7ffa1061d503a63b282234",
+        "android_client_info": {
+          "package_name": "gabrielaleixo.com.encontreipet.encontrei_pet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "578631435741-jg55m7ucoo11cro9fh30n4b5c346921a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoC3-lL-31A20Z-gVPM5Fl_L4r3stqHK0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "578631435741-jg55m7ucoo11cro9fh30n4b5c346921a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
