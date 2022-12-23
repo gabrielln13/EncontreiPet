@@ -15,13 +15,17 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
   final List<File> _listaImagens = [];
   final _formKey = GlobalKey<FormState>();
 
+  final picker = ImagePicker();
+  File? imagemSelecionada;
+
   _selecionarImagemGaleria() async{
 
-    dynamic imagemSelecionada = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    imagemSelecionada = File(pickedFile!.path);
 
     if(imagemSelecionada != null){
       setState(() {
-        _listaImagens.add(imagemSelecionada);
+        _listaImagens.add(imagemSelecionada!);
       });
     }
   }
@@ -88,7 +92,39 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                               }
 
                               if (_listaImagens.length > 0) {
-
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 8),
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => Dialog(
+                                            child: Column(children: <Widget>[
+                                              Image.file(_listaImagens[indice]),
+                                              TextButton(
+                                                child: Text("Excluir"),
+                                                  style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),
+                                                onPressed: (){
+                                                  setState(() {
+                                                    _listaImagens.removeAt(indice);
+                                                  });
+                                                }
+                                              )
+                                            ],),
+                                          )
+                                      );
+                                    },
+                                    child: CircleAvatar(
+                                      radius: 50,
+                                      backgroundImage: FileImage(_listaImagens[indice]),
+                                      child: Container(
+                                        color: Color.fromRGBO(255, 255, 255, 0.4),
+                                        alignment: Alignment.center,
+                                        child: Icon(Icons.delete, color: Colors.red),
+                                      ),
+                                    ),
+                                  ),
+                                );
                               }
                               return Container();
                             }
