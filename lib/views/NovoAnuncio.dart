@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:encontrei_pet/views/widgets/BotaoCustomizado.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
@@ -13,6 +15,8 @@ class NovoAnuncio extends StatefulWidget {
 class _NovoAnuncioState extends State<NovoAnuncio> {
 
   final List<File> _listaImagens = [];
+  final List<DropdownMenuItem<Int>> _listaItensDropEstados = [];
+  final List<DropdownMenuItem<String>> _listaItensDropCategorias = [];
   final _formKey = GlobalKey<FormState>();
 
   final picker = ImagePicker();
@@ -28,6 +32,24 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
         _listaImagens.add(imagemSelecionada!);
       });
     }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _carregarItensDropdown();
+  }
+  
+  _carregarItensDropdown(){
+    
+    //Estados
+    _listaItensDropEstados.add(
+      DropdownMenuItem(child: Text("São Paulo"), value: 1,)
+    );
+    _listaItensDropEstados.add(
+        DropdownMenuItem(child: Text("Minas Gerais"), value: 2,)
+    );
   }
 
   @override
@@ -99,14 +121,17 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                                       showDialog(
                                           context: context,
                                           builder: (context) => Dialog(
-                                            child: Column(children: <Widget>[
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: <Widget>[
                                               Image.file(_listaImagens[indice]),
                                               TextButton(
-                                                child: Text("Excluir"),
-                                                  style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),
+                                                child: Text("Excluir",
+                                                  style: TextStyle(color: Colors.red)),
                                                 onPressed: (){
                                                   setState(() {
                                                     _listaImagens.removeAt(indice);
+                                                    Navigator.of(context).pop();
                                                   });
                                                 }
                                               )
@@ -145,7 +170,18 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                 //menus dropdown
                 Row(
                   children: <Widget>[
-                    Text("Estado"),
+                    Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: DropdownButtonFormField(
+                            hint: Text("Estados"),
+                            items: _listaItensDropEstados,
+                            onChanged: (valor){
+
+                            },
+                          )
+                        )
+                    ),
                     Text("Categoria"),
                   ],
                 ),
