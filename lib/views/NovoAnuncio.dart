@@ -1,9 +1,10 @@
 import 'dart:ffi';
-
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:encontrei_pet/views/widgets/BotaoCustomizado.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:validadores/validadores.dart';
 
 class NovoAnuncio extends StatefulWidget {
   const NovoAnuncio({Key? key}) : super(key: key);
@@ -15,14 +16,17 @@ class NovoAnuncio extends StatefulWidget {
 class _NovoAnuncioState extends State<NovoAnuncio> {
 
   final List<File> _listaImagens = [];
-  final List<DropdownMenuItem<Int>> _listaItensDropEstados = [];
+  final List<DropdownMenuItem<String>> _listaItensDropEstados = [];
   final List<DropdownMenuItem<String>> _listaItensDropCategorias = [];
   final _formKey = GlobalKey<FormState>();
 
-  final picker = ImagePicker();
-  File? imagemSelecionada;
+  String? _itemSelecionadoEstado;
+  String? _itemSelecionadoCategoria;
 
   _selecionarImagemGaleria() async{
+
+  final picker = ImagePicker();
+  File? imagemSelecionada;
 
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     imagemSelecionada = File(pickedFile!.path);
@@ -40,16 +44,37 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
     super.initState();
     _carregarItensDropdown();
   }
-  
+
   _carregarItensDropdown(){
-    
+
+    //Categorias
+    _listaItensDropCategorias.add(
+      DropdownMenuItem(child: Text("Automóvel"), value: "auto",)
+    );
+
+    _listaItensDropCategorias.add(
+        DropdownMenuItem(child: Text("Imóvel"), value: "imovel",)
+    );
+
+    _listaItensDropCategorias.add(
+        DropdownMenuItem(child: Text("Eletrônicos"), value: "eletro",)
+    );
+
+    _listaItensDropCategorias.add(
+        DropdownMenuItem(child: Text("Moda"), value: "moda",)
+    );
+
+    _listaItensDropCategorias.add(
+        DropdownMenuItem(child: Text("Esportes"), value: "esportes",)
+    );
+
     //Estados
-    _listaItensDropEstados.add(
-      DropdownMenuItem(child: Text("São Paulo"), value: 1,)
-    );
-    _listaItensDropEstados.add(
-        DropdownMenuItem(child: Text("Minas Gerais"), value: 2,)
-    );
+    for(var estado in Estados.listaEstadosSigla){
+      _listaItensDropEstados.add(
+        DropdownMenuItem(child: Text(estado), value: estado,)
+      );
+    }
+
   }
 
   @override
@@ -174,15 +199,50 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                         child: Padding(
                           padding: EdgeInsets.all(8),
                           child: DropdownButtonFormField(
+                            value: _itemSelecionadoEstado,
                             hint: Text("Estados"),
+                            style: TextStyle(
+                            color: Colors.black,
+                            fontSize:20
+                          ),
                             items: _listaItensDropEstados,
-                            onChanged: (valor){
-
+                            validator: (valor){
+                              return Validador()
+                                  .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
+                                  .valido(valor as String?);
                             },
-                          )
-                        )
+                            onChanged: (valor){
+                              setState(() {
+                                _itemSelecionadoEstado = valor as String?;
+                              });
+                            },
+                          ),
+                        ),
                     ),
-                    Text("Categoria"),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(8),
+                        child: DropdownButtonFormField(
+                          value: _itemSelecionadoCategoria,
+                          hint: Text("Categorias"),
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize:20
+                          ),
+                          items: _listaItensDropCategorias,
+                          validator: (valor){
+                            return Validador()
+                                .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
+                                .valido(valor as String?);
+                          },
+                          onChanged: (valor){
+                            setState(() {
+                              _itemSelecionadoCategoria = valor as String?;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 //Caixas de textos e botões
@@ -190,7 +250,8 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                 BotaoCustomizado(
                   texto: "Cadastrar Anúncio",
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {}
+                    if (_formKey.currentState!.validate()) {
+                    }
                   },
                 ),
               ],
