@@ -20,7 +20,7 @@ class BotaoCustomizado extends StatelessWidget {
             borderRadius: BorderRadius.circular(6)
           ),
         ),
-        backgroundColor: MaterialStateProperty.all(Colors.blue[100]),
+        backgroundColor: MaterialStateProperty.all(Color(0xff2BBDEE)),
         padding: MaterialStateProperty.all(EdgeInsets.fromLTRB(32, 16, 32, 16)),
       ),
       child: Text(
