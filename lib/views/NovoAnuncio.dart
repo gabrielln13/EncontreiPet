@@ -1,10 +1,14 @@
 import 'dart:ffi';
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:encontrei_pet/views/widgets/BotaoCustomizado.dart';
+import 'package:encontrei_pet/views/widgets/InputCustomizado.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:validadores/validadores.dart';
+import 'package:flutter/services.dart';
+
+import '../models/Anuncio.dart';
 
 class NovoAnuncio extends StatefulWidget {
   const NovoAnuncio({Key? key}) : super(key: key);
@@ -13,12 +17,18 @@ class NovoAnuncio extends StatefulWidget {
   State<NovoAnuncio> createState() => _NovoAnuncioState();
 }
 
+TextEditingController _tituloController = TextEditingController();
+TextEditingController _precoController = TextEditingController();
+TextEditingController _telefoneController = TextEditingController();
+TextEditingController _descricaoController = TextEditingController();
+
 class _NovoAnuncioState extends State<NovoAnuncio> {
 
   final List<File> _listaImagens = [];
   final List<DropdownMenuItem<String>> _listaItensDropEstados = [];
   final List<DropdownMenuItem<String>> _listaItensDropCategorias = [];
   final _formKey = GlobalKey<FormState>();
+  late Anuncio _anuncio;
 
   String? _itemSelecionadoEstado;
   String? _itemSelecionadoCategoria;
@@ -43,6 +53,9 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
     // TODO: implement initState
     super.initState();
     _carregarItensDropdown();
+
+    _anuncio = Anuncio();
+
   }
 
   _carregarItensDropdown(){
@@ -201,6 +214,9 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                           child: DropdownButtonFormField(
                             value: _itemSelecionadoEstado,
                             hint: Text("Estados"),
+                            onSaved: (estado){
+                              _anuncio.estado = estado.toString();
+                            },
                             style: TextStyle(
                             color: Colors.black,
                             fontSize:20
@@ -225,6 +241,9 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                         child: DropdownButtonFormField(
                           value: _itemSelecionadoCategoria,
                           hint: Text("Categorias"),
+                          onSaved: (categoria){
+                            _anuncio..categoria = categoria.toString();
+                          },
                           style: TextStyle(
                               color: Colors.black,
                               fontSize:20
@@ -246,11 +265,79 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                   ],
                 ),
                 //Caixas de textos e botões
-                Text("Caixas de textos"),
+
+                Padding(
+                    padding: EdgeInsets.only(bottom: 15, top: 15),
+                  child: InputCustomizado(
+                    controller: _tituloController,
+                    hint: "Título",
+                    validator: (valor){
+                      return Validador()
+                          .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
+                          .valido(valor as String?);
+                    },
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.only(bottom: 15),
+                  child: InputCustomizado(
+                    controller: _precoController,
+                    hint: "Preço",
+                    type: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      CentavosInputFormatter(casasDecimais: 2),
+                    ],
+                    validator: (valor){
+                      return Validador()
+                          .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
+                          .valido(valor as String?);
+                    },
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.only(bottom: 15),
+                  child: InputCustomizado(
+                    controller: _telefoneController,
+                    hint: "Telefone",
+                    type: TextInputType.phone,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      TelefoneInputFormatter()
+                    ],
+                    validator: (valor){
+                      return Validador()
+                          .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
+                          .valido(valor as String?);
+                    },
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.only(bottom: 15),
+                  child: InputCustomizado(
+                    controller: _descricaoController,
+                    hint: "Descrição",
+                    maxLines: null,
+                    validator: (valor){
+                      return Validador()
+                          .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
+                      .maxLength(200, msg: "Máximo de 200 caracteres")
+                          .valido(valor as String?);
+                    },
+                  ),
+                ),
+
                 BotaoCustomizado(
                   texto: "Cadastrar Anúncio",
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
+
+                      //Salvar campos
+                      _formKey.currentState?.save();
+
                     }
                   },
                 ),
