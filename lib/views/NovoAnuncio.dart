@@ -1,13 +1,12 @@
-import 'dart:ffi';
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:encontrei_pet/views/widgets/BotaoCustomizado.dart';
 import 'package:encontrei_pet/views/widgets/InputCustomizado.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:validadores/validadores.dart';
 import 'package:flutter/services.dart';
-
 import '../models/Anuncio.dart';
 
 class NovoAnuncio extends StatefulWidget {
@@ -46,6 +45,35 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
         _listaImagens.add(imagemSelecionada!);
       });
     }
+  }
+
+  _salvarAnuncio() async{
+    //uploud imagens no storage
+    await _uploadImagens();
+
+    print("lista imagens: ${_anuncio.fotos.toString()}");
+
+  }
+
+  Future _uploadImagens() async{
+    FirebaseStorage storage = FirebaseStorage.instance;
+    Reference pastaRaiz = storage.ref();
+
+    for(var imagem in _listaImagens){
+      String nomeImagem = DateTime.now().microsecondsSinceEpoch.toString();
+      Reference arquivo = pastaRaiz
+          .child("meus_anuncios")
+          .child(_anuncio.id)
+          .child(nomeImagem);
+
+      UploadTask uploadTask = arquivo.putFile(imagem);
+      TaskSnapshot taskSnapshot = await uploadTask;
+
+      String url = await taskSnapshot.ref.getDownloadURL();
+      _anuncio.fotos.add(url);
+
+    }
+
   }
 
   @override
@@ -271,6 +299,9 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                   child: InputCustomizado(
                     controller: _tituloController,
                     hint: "Título",
+                    onSaved: (titulo){
+                      _anuncio.titulo = titulo.toString();
+                    },
                     validator: (valor){
                       return Validador()
                           .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
@@ -284,6 +315,9 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                   child: InputCustomizado(
                     controller: _precoController,
                     hint: "Preço",
+                    onSaved: (preco){
+                      _anuncio.preco = preco.toString();
+                    },
                     type: TextInputType.number,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
@@ -302,6 +336,9 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                   child: InputCustomizado(
                     controller: _telefoneController,
                     hint: "Telefone",
+                    onSaved: (telefone){
+                      _anuncio.telefone = telefone.toString();
+                    },
                     type: TextInputType.phone,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
@@ -320,6 +357,9 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                   child: InputCustomizado(
                     controller: _descricaoController,
                     hint: "Descrição",
+                    onSaved: (descricao){
+                      _anuncio.descricao = descricao.toString();
+                    },
                     maxLines: null,
                     validator: (valor){
                       return Validador()
@@ -334,6 +374,9 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                   texto: "Cadastrar Anúncio",
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
+
+                      //Salvar campos
+                      _formKey.currentState?.save();
 
                       //Salvar campos
                       _formKey.currentState?.save();
