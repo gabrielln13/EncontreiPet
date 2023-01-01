@@ -32,11 +32,10 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
   String? _itemSelecionadoEstado;
   String? _itemSelecionadoCategoria;
 
-  _selecionarImagemGaleria() async{
-
   final picker = ImagePicker();
   File? imagemSelecionada;
 
+  _selecionarImagemGaleria() async{
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     imagemSelecionada = File(pickedFile!.path);
 
@@ -253,11 +252,11 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                             validator: (valor){
                               return Validador()
                                   .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
-                                  .valido(valor as String?);
+                                  .valido(valor as String);
                             },
                             onChanged: (valor){
                               setState(() {
-                                _itemSelecionadoEstado = valor as String?;
+                                _itemSelecionadoEstado = valor as String;
                               });
                             },
                           ),
@@ -280,11 +279,11 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                           validator: (valor){
                             return Validador()
                                 .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
-                                .valido(valor as String?);
+                                .valido(valor as String);
                           },
                           onChanged: (valor){
                             setState(() {
-                              _itemSelecionadoCategoria = valor as String?;
+                              _itemSelecionadoCategoria = valor as String;
                             });
                           },
                         ),
@@ -302,10 +301,11 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                     onSaved: (titulo){
                       _anuncio.titulo = titulo.toString();
                     },
+                    maxLines: 1,
                     validator: (valor){
                       return Validador()
                           .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
-                          .valido(valor as String?);
+                          .valido(valor as String);
                     },
                   ),
                 ),
@@ -318,6 +318,7 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                     onSaved: (preco){
                       _anuncio.preco = preco.toString();
                     },
+                    maxLines: 1,
                     type: TextInputType.number,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
@@ -326,7 +327,7 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                     validator: (valor){
                       return Validador()
                           .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
-                          .valido(valor as String?);
+                          .valido(valor as String);
                     },
                   ),
                 ),
@@ -339,6 +340,7 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                     onSaved: (telefone){
                       _anuncio.telefone = telefone.toString();
                     },
+                    maxLines: 1,
                     type: TextInputType.phone,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
@@ -347,7 +349,7 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                     validator: (valor){
                       return Validador()
                           .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
-                          .valido(valor as String?);
+                          .valido(valor as String);
                     },
                   ),
                 ),
@@ -365,7 +367,7 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                       return Validador()
                           .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
                       .maxLength(200, msg: "Máximo de 200 caracteres")
-                          .valido(valor as String?);
+                          .valido(valor as String);
                     },
                   ),
                 ),
@@ -378,8 +380,8 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                       //Salvar campos
                       _formKey.currentState?.save();
 
-                      //Salvar campos
-                      _formKey.currentState?.save();
+                      //Salvar anuncio
+                      _salvarAnuncio();
 
                     }
                   },

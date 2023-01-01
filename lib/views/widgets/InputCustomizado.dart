@@ -21,7 +21,7 @@ class InputCustomizado extends StatelessWidget {
     this.autofocus = false,
     this.type = TextInputType.text,
     this.inputFormatters,
-    this.maxLines,
+    required this.maxLines,
     this.validator,
     this.onSaved
   });
