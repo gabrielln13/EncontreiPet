@@ -15,7 +15,7 @@ class Anuncio{
 
     FirebaseFirestore db = FirebaseFirestore.instance;
     CollectionReference anuncios = db.collection("meus_anuncios"); //acessar pasta anuncio
-    this.id = anuncios.doc().toString(); // pegar id gerado do anuncio e inicializá-lo
+    this.id = anuncios.doc().id; // pegar id gerado do anuncio e inicializá-lo
     this.fotos = [];
   }
 

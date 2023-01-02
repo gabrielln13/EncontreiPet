@@ -78,7 +78,7 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
 
     //Salvar anuncio no Firestore
     FirebaseAuth auth = FirebaseAuth.instance;
-    User usuarioLogado = await auth.currentUser as User;
+    User? usuarioLogado = await auth.currentUser!;
     String idUsuarioLogado = usuarioLogado.uid;
 
     FirebaseFirestore db = FirebaseFirestore.instance;
@@ -86,12 +86,10 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
         .doc(idUsuarioLogado)
         .collection("anuncios")
         .doc(_anuncio.id)
-        .set(_anuncio.toMap()).then((_){
-
+        .set(_anuncio.toMap()).then((_) {
       Navigator.pop(_dialogContext);
 
       Navigator.pushReplacementNamed(context, "/meus-anuncios");
-
     });
 
 
