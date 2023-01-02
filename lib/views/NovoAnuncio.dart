@@ -1,6 +1,8 @@
 import 'package:brasil_fields/brasil_fields.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:encontrei_pet/views/widgets/BotaoCustomizado.dart';
 import 'package:encontrei_pet/views/widgets/InputCustomizado.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
@@ -28,6 +30,7 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
   final List<DropdownMenuItem<String>> _listaItensDropCategorias = [];
   final _formKey = GlobalKey<FormState>();
   late Anuncio _anuncio;
+  late BuildContext _dialogContext;
 
   String? _itemSelecionadoEstado;
   String? _itemSelecionadoCategoria;
@@ -46,11 +49,51 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
     }
   }
 
+  _abrirDialog(BuildContext context){
+
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context){
+          return AlertDialog(
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                CircularProgressIndicator(),
+                SizedBox(height: 20,),
+                Text("Salvando anúncio...")
+              ],),
+          );
+        }
+    );
+
+  }
+
   _salvarAnuncio() async{
+
+    _abrirDialog( _dialogContext );
+
     //uploud imagens no storage
     await _uploadImagens();
 
-    print("lista imagens: ${_anuncio.fotos.toString()}");
+    //Salvar anuncio no Firestore
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User usuarioLogado = await auth.currentUser as User;
+    String idUsuarioLogado = usuarioLogado.uid;
+
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    db.collection("meus_anuncios")
+        .doc(idUsuarioLogado)
+        .collection("anuncios")
+        .doc(_anuncio.id)
+        .set(_anuncio.toMap()).then((_){
+
+      Navigator.pop(_dialogContext);
+
+      Navigator.pushReplacementNamed(context, "/meus-anuncios");
+
+    });
+
 
   }
 
@@ -379,6 +422,9 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
 
                       //Salvar campos
                       _formKey.currentState?.save();
+
+                      //Configura dialog context
+                      _dialogContext = context;
 
                       //Salvar anuncio
                       _salvarAnuncio();
