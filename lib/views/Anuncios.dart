@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:encontrei_pet/main.dart';
 import 'package:encontrei_pet/views/widgets/ItemAnuncio.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -120,6 +121,17 @@ class _AnunciosState extends State<Anuncios> {
 
   @override
   Widget build(BuildContext context) {
+
+    var carregandoDados = Center(
+      child: Column(children: <Widget>[
+
+        Text("Carregando anúncios..."),
+        CircularProgressIndicator()
+      ],
+
+      ),
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Encontrei Pet"),
@@ -147,7 +159,7 @@ class _AnunciosState extends State<Anuncios> {
               child: DropdownButtonHideUnderline(
                   child: Center(
                     child: DropdownButton(
-                      iconEnabledColor: Color(0xff2BBDEE),
+                      iconEnabledColor: temaPadrao.primaryColor,
                       value: _itemSelecionadoEstado,
                       items: _listaItensDropEstados,
                       style: TextStyle(
@@ -175,7 +187,7 @@ class _AnunciosState extends State<Anuncios> {
               child: DropdownButtonHideUnderline(
                   child: Center(
                     child: DropdownButton(
-                      iconEnabledColor: Color(0xff2BBDEE),
+                      iconEnabledColor: temaPadrao.primaryColor,
                       value: _itemSelecionadoCategoria,
                       items: _listaItensDropCategorias,
                       style: TextStyle(
@@ -203,16 +215,7 @@ class _AnunciosState extends State<Anuncios> {
               switch( snapshot.connectionState ){
                 case ConnectionState.none:
                 case ConnectionState.waiting:
-                return Center(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.only(bottom: 20),
-                            child: Text("Carregando anúncios..."),
-                          ),
-                          CircularProgressIndicator()
-                        ]));
+                return carregandoDados;
                 break;
                 case ConnectionState.active:
                 case ConnectionState.done:
@@ -242,7 +245,8 @@ class _AnunciosState extends State<Anuncios> {
                             anuncio: anuncio,
                             onTapItem: (){
                               Navigator.pushNamed(
-                                  context, "/detalhes-anuncio"
+                                  context, "/detalhes-anuncio",
+                                arguments: anuncio
                               );
                             },
                           );

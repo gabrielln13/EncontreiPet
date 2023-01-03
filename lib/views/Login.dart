@@ -144,6 +144,12 @@ class _LoginState extends State<Login> {
                     _validarCampos();
                   },
                 ),
+                    MaterialButton(
+                      child: Text("Cadastrar Usuário"),
+                      onPressed: (){
+                        Navigator.pushReplacementNamed(context, "/");
+                      },
+                    ),
 
                     Padding(
                     padding: EdgeInsets.only(top: 20),
