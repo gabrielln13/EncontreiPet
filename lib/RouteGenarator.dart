@@ -1,4 +1,5 @@
 import 'package:encontrei_pet/views/Anuncios.dart';
+import 'package:encontrei_pet/views/DetalhesAnuncio.dart';
 import 'package:encontrei_pet/views/Login.dart';
 import 'package:encontrei_pet/views/MeusAnuncios.dart';
 import 'package:encontrei_pet/views/NovoAnuncio.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/material.dart';
 
 class RouteGenerator{
 
-  static Route<dynamic> generateRoute(RouteSettings settings){
+  static Route<dynamic> generateRoute(settings){
 
     final args = settings.arguments;
 
@@ -27,6 +28,10 @@ class RouteGenerator{
       case "/novo-anuncio":
         return MaterialPageRoute(
             builder: (_) => NovoAnuncio()
+        );
+      case "/detalhes-anuncio":
+        return MaterialPageRoute(
+            builder: (_) => DetalhesAnuncio(args)
         );
       default:
         return MaterialPageRoute(

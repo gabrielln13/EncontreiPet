@@ -1,5 +1,12 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:encontrei_pet/views/widgets/ItemAnuncio.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../models/Anuncio.dart';
+import '../util/Configuracoes.dart';
 
 class Anuncios extends StatefulWidget {
   const Anuncios({Key? key}) : super(key: key);
@@ -11,6 +18,14 @@ class Anuncios extends StatefulWidget {
 class _AnunciosState extends State<Anuncios> {
 
   List<String> itensMenu = [];
+  late List<DropdownMenuItem<String>> _listaItensDropCategorias;
+  late List<DropdownMenuItem<String>> _listaItensDropEstados;
+
+  final _controler = StreamController<QuerySnapshot>.broadcast();
+
+  String? _itemSelecionadoEstado;
+  String? _itemSelecionadoCategoria;
+
   _escolhaMenuItem(String itemEscolhido){
 
     switch(itemEscolhido){
@@ -52,11 +67,55 @@ class _AnunciosState extends State<Anuncios> {
     }
   }
 
+  _carregarItensDropdown(){
+
+    //Categorias
+    _listaItensDropCategorias = Configuracoes.getCategorias();
+
+    //Estados
+    _listaItensDropEstados = Configuracoes.getEstados();
+
+  }
+
+  Future<Stream<QuerySnapshot>?> _adicionarListenerAnuncios() async {
+
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    Stream<QuerySnapshot> stream = db
+        .collection("anuncios")
+        .snapshots();
+
+    stream.listen((dados){
+      _controler.add(dados);
+    });
+
+  }
+
+  Future<Stream<QuerySnapshot>?> _filtrarAnuncios() async {
+
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    Query query = db.collection("anuncios");
+
+    if( _itemSelecionadoEstado != null ){
+      query = query.where("estado", isEqualTo: _itemSelecionadoEstado);
+    }
+    if( _itemSelecionadoCategoria != null ){
+      query = query.where("categoria", isEqualTo: _itemSelecionadoCategoria);
+    }
+
+    Stream<QuerySnapshot> stream = query.snapshots();
+    stream.listen((dados){
+      _controler.add(dados);
+    });
+
+  }
+
   @override
   void initState(){
     super.initState();
 
+    _carregarItensDropdown();
     _verificaUsuarioLogado();
+    _adicionarListenerAnuncios();
   }
 
   @override
@@ -80,8 +139,125 @@ class _AnunciosState extends State<Anuncios> {
         ],
       ),
       body: Container(
-        child: Text("Anúncios"),
-      )
+        child: Column(children: <Widget>[
+
+          //Filtros
+          Row(children: <Widget>[
+            Expanded(
+              child: DropdownButtonHideUnderline(
+                  child: Center(
+                    child: DropdownButton(
+                      iconEnabledColor: Color(0xff2BBDEE),
+                      value: _itemSelecionadoEstado,
+                      items: _listaItensDropEstados,
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black
+                      ),
+                      onChanged: (estado){
+                        setState(() {
+                          _itemSelecionadoEstado = estado as String?;
+                          _filtrarAnuncios();
+                        });
+                      },
+                    ),
+                  )
+              ),
+            ),
+
+            Container(
+              color: Colors.grey[200],
+              width: 2,
+              height: 60,
+            ),
+
+            Expanded(
+              child: DropdownButtonHideUnderline(
+                  child: Center(
+                    child: DropdownButton(
+                      iconEnabledColor: Color(0xff2BBDEE),
+                      value: _itemSelecionadoCategoria,
+                      items: _listaItensDropCategorias,
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black
+                      ),
+                      onChanged: (categoria){
+                        setState(() {
+                          _itemSelecionadoCategoria = categoria as String?;
+                          _filtrarAnuncios();
+                        });
+                      },
+                    ),
+                  )
+              ),
+            )
+
+
+
+          ],),
+          //Listagem de anúncios
+          StreamBuilder(
+            stream: _controler.stream,
+            builder: (context, snapshot){
+              switch( snapshot.connectionState ){
+                case ConnectionState.none:
+                case ConnectionState.waiting:
+                return Center(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 20),
+                            child: Text("Carregando anúncios..."),
+                          ),
+                          CircularProgressIndicator()
+                        ]));
+                break;
+                case ConnectionState.active:
+                case ConnectionState.done:
+
+                  QuerySnapshot querySnapshot = snapshot.data as QuerySnapshot;
+
+                  if( querySnapshot.docs.length == 0 ){
+                    return Container(
+                      padding: EdgeInsets.all(25),
+                      child: Text("Nenhum anúncio!", style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold
+                      ),),
+                    );
+                  }
+
+                  return Expanded(
+                    child: ListView.builder(
+                        itemCount: querySnapshot.docs.length,
+                        itemBuilder: (_, indice){
+
+                          List<DocumentSnapshot> anuncios = querySnapshot.docs.toList();
+                          DocumentSnapshot documentSnapshot = anuncios[indice];
+                          Anuncio anuncio = Anuncio.fromDocumentSnapshot(documentSnapshot);
+
+                          return ItemAnuncio(
+                            anuncio: anuncio,
+                            onTapItem: (){
+                              Navigator.pushNamed(
+                                  context, "/detalhes-anuncio"
+                              );
+                            },
+                          );
+
+                        }
+                    ),
+                  );
+
+              }
+              return Container();
+            },
+          )
+
+        ],),
+      ),
     );
   }
 }

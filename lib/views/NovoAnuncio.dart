@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:validadores/validadores.dart';
 import 'package:flutter/services.dart';
 import '../models/Anuncio.dart';
+import '../util/Configuracoes.dart';
 
 class NovoAnuncio extends StatefulWidget {
   const NovoAnuncio({Key? key}) : super(key: key);
@@ -25,9 +26,9 @@ TextEditingController _descricaoController = TextEditingController();
 
 class _NovoAnuncioState extends State<NovoAnuncio> {
 
-  final List<File> _listaImagens = [];
-  final List<DropdownMenuItem<String>> _listaItensDropEstados = [];
-  final List<DropdownMenuItem<String>> _listaItensDropCategorias = [];
+  List<File> _listaImagens = [];
+  List<DropdownMenuItem<String>> _listaItensDropEstados = [];
+  List<DropdownMenuItem<String>> _listaItensDropCategorias = [];
   final _formKey = GlobalKey<FormState>();
   late Anuncio _anuncio;
   late BuildContext _dialogContext;
@@ -87,12 +88,18 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
         .collection("anuncios")
         .doc(_anuncio.id)
         .set(_anuncio.toMap()).then((_) {
+
+      //salvar anúncio público
+      db.collection("anuncios")
+          .doc( _anuncio.id )
+          .set( _anuncio.toMap() ).then((_){
+
       Navigator.pop(_dialogContext);
 
       Navigator.pop(context);
     });
 
-
+    });
   }
 
   Future _uploadImagens() async{
@@ -129,32 +136,10 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
   _carregarItensDropdown(){
 
     //Categorias
-    _listaItensDropCategorias.add(
-      DropdownMenuItem(child: Text("Automóvel"), value: "auto",)
-    );
-
-    _listaItensDropCategorias.add(
-        DropdownMenuItem(child: Text("Imóvel"), value: "imovel",)
-    );
-
-    _listaItensDropCategorias.add(
-        DropdownMenuItem(child: Text("Eletrônicos"), value: "eletro",)
-    );
-
-    _listaItensDropCategorias.add(
-        DropdownMenuItem(child: Text("Moda"), value: "moda",)
-    );
-
-    _listaItensDropCategorias.add(
-        DropdownMenuItem(child: Text("Esportes"), value: "esportes",)
-    );
+    _listaItensDropCategorias = Configuracoes.getCategorias();
 
     //Estados
-    for(var estado in Estados.listaEstadosSigla){
-      _listaItensDropEstados.add(
-        DropdownMenuItem(child: Text(estado), value: estado,)
-      );
-    }
+    _listaItensDropEstados = Configuracoes.getEstados();
 
   }
 

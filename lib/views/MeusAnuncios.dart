@@ -1,39 +1,3 @@
-// import 'package:encontrei_pet/views/widgets/ItemAnuncio.dart';
-// import 'package:flutter/material.dart';
-//
-// class MeusAnuncios extends StatefulWidget {
-//   const MeusAnuncios({Key? key}) : super(key: key);
-//
-//   @override
-//   State<MeusAnuncios> createState() => _MeusAnunciosState();
-// }
-//
-// class _MeusAnunciosState extends State<MeusAnuncios> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text("Meus Anúncios"),
-//       ),
-//       floatingActionButton: FloatingActionButton(
-//         //backgroundColor: Color.fromARGB(250, 255, 179, 0),
-//         foregroundColor: Colors.white,
-//         shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(2.0))),
-//         child: Icon(Icons.add),
-//         onPressed: (){
-//           Navigator.pushNamed(context, "/novo-anuncio");
-//         },
-//       ),
-//       body: ListView.builder(
-//           itemCount: 4,
-//           itemBuilder: (_, indice){
-//             return ItemAnuncio();
-//           }
-//       ),
-//     );
-//   }
-// }
-
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -83,7 +47,13 @@ class _MeusAnunciosState extends State<MeusAnuncios> {
         .doc( _idUsuarioLogado )
         .collection("anuncios")
         .doc( idAnuncio )
-        .delete();
+        .delete().then((_){
+
+      db.collection("anuncios")
+          .doc(idAnuncio)
+          .delete();
+
+    });
 
   }
 
