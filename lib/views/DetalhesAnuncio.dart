@@ -35,15 +35,16 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
 
   }
 
-  _ligarTelefone(String telefone) async {
-
-    if( await canLaunchUrlString("tel:$telefone") ){
-      await launchUrlString("tel:$telefone");
-    }else{
-      print("Não pode fazer a ligação");
-    }
-
-  }
+  // Exemplo de ligação
+  // _ligarTelefone(String telefone) async {
+  //
+  //   if( await canLaunchUrlString("tel:$telefone") ){
+  //     await launchUrlString("tel:$telefone");
+  //   }else{
+  //     print("Não pode fazer a ligação");
+  //   }
+  //
+  // }
 
   @override
   void initState() {
@@ -147,6 +148,33 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
 
         ],),
 
+        //Exemplo de Ligação
+        // Positioned(
+        //   left: 16,
+        //   right: 16,
+        //   bottom: 16,
+        //   child: GestureDetector(
+        //     child: Container(
+        //       child: Text(
+        //         "Ligar",
+        //         style: TextStyle(
+        //             color: Colors.white,
+        //             fontSize: 20
+        //         ),
+        //       ),
+        //       padding: EdgeInsets.all(16),
+        //       alignment: Alignment.center,
+        //       decoration: BoxDecoration(
+        //           color: temaPadrao.primaryColor,
+        //           borderRadius: BorderRadius.circular(30)
+        //       ),
+        //     ),
+        //     onTap: (){
+        //       _ligarTelefone(_anuncio.telefone);
+        //     },
+        //   ),
+        // ),
+
         Positioned(
           left: 16,
           right: 16,
@@ -154,7 +182,7 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
           child: GestureDetector(
             child: Container(
               child: Text(
-                "Ligar",
+                "Interesse na Adoção?",
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 20
@@ -168,7 +196,8 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
               ),
             ),
             onTap: (){
-              _ligarTelefone(_anuncio.telefone);
+              Navigator.pushNamed(context, "/interesse-adocao");
+
             },
           ),
         )

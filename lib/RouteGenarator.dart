@@ -1,5 +1,6 @@
 import 'package:encontrei_pet/views/Anuncios.dart';
 import 'package:encontrei_pet/views/DetalhesAnuncio.dart';
+import 'package:encontrei_pet/views/InteresseAdocao.dart';
 import 'package:encontrei_pet/views/Login.dart';
 import 'package:encontrei_pet/views/MeusAnuncios.dart';
 import 'package:encontrei_pet/views/NovoAnuncio.dart';
@@ -33,11 +34,11 @@ class RouteGenerator{
         return MaterialPageRoute(
             builder: (_) => DetalhesAnuncio(args)
         );
-      case "/novo-usuario":
+      case "/interesse-adocao":
         return MaterialPageRoute(
-            builder: (_) => DetalhesAnuncio(args)
+            builder: (_) => InteresseAdocao(args)
         );
-      default:
+          default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
               body: Center(

@@ -86,9 +86,9 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(""),
-      ),
+      // appBar: AppBar(
+      //   title: Text(""),
+      // ),
       body: Container(
         padding: EdgeInsets.all(16),
         child: Center(
@@ -118,25 +118,26 @@ class _LoginState extends State<Login> {
                   maxLines: 1,
                 ),
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text("Logar"),
-                    Switch(
-                      value: _cadastrar,
-                      onChanged: (bool valor){
-                        setState(() {
-                          _cadastrar = valor;
-                          _textoBotao = "Entrar";
-                          if(_cadastrar ){
-                            _textoBotao = "Cadastre-se";
-                          }
-                        });
-                      },
-                    ),
-                    Text("Cadastrar"),
-                  ],
-                ),
+                SizedBox(height: 20,),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: <Widget>[
+                //     Text("Logar"),
+                //     Switch(
+                //       value: _cadastrar,
+                //       onChanged: (bool valor){
+                //         setState(() {
+                //           _cadastrar = valor;
+                //           _textoBotao = "Entrar";
+                //           if(_cadastrar ){
+                //             _textoBotao = "Cadastre-se";
+                //           }
+                //         });
+                //       },
+                //     ),
+                //     Text("Cadastrar"),
+                //   ],
+                // ),
 
                 BotaoCustomizado(
                   texto: _textoBotao,
