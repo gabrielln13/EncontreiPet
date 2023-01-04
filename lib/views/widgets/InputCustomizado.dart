@@ -24,6 +24,7 @@ class InputCustomizado extends StatelessWidget {
     required this.maxLines,
     this.validator,
     this.onSaved
+
   });
 
   @override
@@ -44,7 +45,7 @@ class InputCustomizado extends StatelessWidget {
           filled: true,
           fillColor: Colors.white,
           border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(6)
+              borderRadius: BorderRadius.circular(16)
           )
       ),
     );

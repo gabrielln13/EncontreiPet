@@ -1,4 +1,5 @@
 import 'package:encontrei_pet/models/Usuario.dart';
+import 'package:encontrei_pet/views/NovoUsuario.dart';
 import 'package:encontrei_pet/views/widgets/BotaoCustomizado.dart';
 import 'package:encontrei_pet/views/widgets/InputCustomizado.dart';
 import 'package:flutter/material.dart';
@@ -20,20 +21,20 @@ class _LoginState extends State<Login> {
   String _mensagemErro = "";
   String _textoBotao = "Entrar";
 
-  _cadastrarUsuario(Usuario usuario){
-
-  FirebaseAuth auth = FirebaseAuth.instance;
-
-  auth.createUserWithEmailAndPassword(
-  email: usuario.email,
-  password: usuario.senha
-  ).then((FirebaseUser){
-
-    //redireciona para tela principal
-    Navigator.pushReplacementNamed(context, "/");
-
-  });
-}
+//   _cadastrarUsuario(Usuario usuario){
+//
+//   FirebaseAuth auth = FirebaseAuth.instance;
+//
+//   auth.createUserWithEmailAndPassword(
+//   email: usuario.email,
+//   password: usuario.senha
+//   ).then((FirebaseUser){
+//
+//     //redireciona para tela principal
+//     Navigator.pushReplacementNamed(context, "/");
+//
+//   });
+// }
   _logarUsuario(Usuario usuario){
 
     FirebaseAuth auth = FirebaseAuth.instance;
@@ -62,18 +63,18 @@ class _LoginState extends State<Login> {
         usuario.senha = senha;
         usuario.email = email;
 
-        //Cadastrar ou Logar
-        if(_cadastrar){
-          //Cadastrar
-          _cadastrarUsuario(usuario);
-        }else{
-          //Logar
+        // //Cadastrar ou Logar
+        // if(_cadastrar){
+        //   //Cadastrar
+        //   _cadastrarUsuario(usuario);
+        // }else{
+        //   //Logar
           _logarUsuario(usuario);
-        }
+        // }
 
       } else {
         setState(() {
-          _mensagemErro = "Preencha a senha! Digite seis ou mais caracteres";
+          _mensagemErro = "Preencha a senha! Digite 6 ou mais caracteres";
         });
       }
     } else {
@@ -86,15 +87,13 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(""),
-      // ),
       body: Container(
+        // decoration: BoxDecoration(color: Color(0xffeeeef3)),
         padding: EdgeInsets.all(16),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.center, //tamanho do botão "entrar"
               children: <Widget>[
                 Padding(padding: EdgeInsets.only(bottom: 32),
                 child: Image.asset(
@@ -110,7 +109,11 @@ class _LoginState extends State<Login> {
                   autofocus: true,
                   maxLines: 1,
                   type: TextInputType.emailAddress,
-                ),
+                  ),
+
+                Padding(
+                    padding: EdgeInsets.only(top:5)),
+
                 InputCustomizado(
                   controller: _controllerSenha,
                   hint: "Senha",
@@ -118,7 +121,9 @@ class _LoginState extends State<Login> {
                   maxLines: 1,
                 ),
 
-                SizedBox(height: 20,),
+                Padding(
+                    padding: EdgeInsets.only(top:16, bottom: 10)),
+
                 // Row(
                 //   mainAxisAlignment: MainAxisAlignment.center,
                 //   children: <Widget>[
@@ -145,12 +150,25 @@ class _LoginState extends State<Login> {
                     _validarCampos();
                   },
                 ),
-                    MaterialButton(
-                      child: Text("Cadastrar Usuário"),
-                      onPressed: (){
-                        Navigator.pushReplacementNamed(context, "/");
-                      },
-                    ),
+
+                Padding(
+                    padding: EdgeInsets.all(16),
+                child: GestureDetector(
+                  child: Text("Não tem conta? Cadastre-se",
+                  style: TextStyle(
+                    color: Colors.black
+                  )
+                  ),
+                  onTap: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                        builder: (context) => NovoUsuario()
+                    )
+                    );
+                  },
+                ),
+                ),
 
                     Padding(
                     padding: EdgeInsets.only(top: 20),

@@ -6,7 +6,8 @@ import 'package:firebase_core/firebase_core.dart';
 
 final ThemeData temaPadrao = ThemeData(
     colorScheme: ColorScheme.fromSwatch().copyWith(
-        primary: Color(0xff0E1F55),
+        // primary: Color(0xff0E1F55),
+        primary: Colors.grey,
         secondary: Color(0xff2BBDEE),
 ));
 

@@ -4,6 +4,7 @@ import 'package:encontrei_pet/views/InteresseAdocao.dart';
 import 'package:encontrei_pet/views/Login.dart';
 import 'package:encontrei_pet/views/MeusAnuncios.dart';
 import 'package:encontrei_pet/views/NovoAnuncio.dart';
+import 'package:encontrei_pet/views/NovoUsuario.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -37,6 +38,10 @@ class RouteGenerator{
       case "/interesse-adocao":
         return MaterialPageRoute(
             builder: (_) => InteresseAdocao(args)
+        );
+      case "/novo-usuario":
+        return MaterialPageRoute(
+            builder: (_) => NovoUsuario()
         );
           default:
         return MaterialPageRoute(

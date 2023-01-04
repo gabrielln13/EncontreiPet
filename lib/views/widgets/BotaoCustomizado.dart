@@ -17,11 +17,11 @@ class BotaoCustomizado extends StatelessWidget {
       style: ButtonStyle(
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6)
+            borderRadius: BorderRadius.circular(10)
           ),
         ),
         backgroundColor: MaterialStateProperty.all(Color(0xff2BBDEE)),
-        padding: MaterialStateProperty.all(EdgeInsets.fromLTRB(32, 16, 32, 16)),
+        padding: MaterialStateProperty.all(EdgeInsets.fromLTRB(32, 10, 32, 10)),
       ),
       child: Text(
         this.texto,
