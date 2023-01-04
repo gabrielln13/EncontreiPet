@@ -33,6 +33,10 @@ class RouteGenerator{
         return MaterialPageRoute(
             builder: (_) => DetalhesAnuncio(args)
         );
+      case "/novo-usuario":
+        return MaterialPageRoute(
+            builder: (_) => DetalhesAnuncio(args)
+        );
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
