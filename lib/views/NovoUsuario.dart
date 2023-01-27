@@ -1,14 +1,20 @@
+import 'package:brasil_fields/brasil_fields.dart';
+import 'package:encontrei_pet/views/Login.dart';
 import 'package:encontrei_pet/views/widgets/BotaoCustomizado.dart';
 import 'package:encontrei_pet/views/widgets/InputCustomizado.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get_utils/src/get_utils/get_utils.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:validadores/Validador.dart';
 import '../models/Usuario.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NovoUsuario extends StatefulWidget {
-  const NovoUsuario({Key? key}) : super(key: key);
 
   @override
-  State<NovoUsuario> createState() => _NovoUsuarioState();
+  _NovoUsuarioState createState() => _NovoUsuarioState();
 }
 
 class _NovoUsuarioState extends State<NovoUsuario> {
@@ -16,81 +22,58 @@ class _NovoUsuarioState extends State<NovoUsuario> {
   TextEditingController _controllerSenha = TextEditingController();
   TextEditingController _controllerNome = TextEditingController();
   TextEditingController _controllerTelefone = TextEditingController();
-  //TextEditingController _controllerCpf = TextEditingController();
+  TextEditingController _controllerCpf = TextEditingController();
 
-  bool _cadastrar = true;
+  // bool _cadastrar = true;
   String _mensagemErro = "";
   String _textoBotao = "Cadastrar";
-
-  _cadastrarUsuario(Usuario usuario) {
-    FirebaseAuth auth = FirebaseAuth.instance;
-
-    auth.createUserWithEmailAndPassword(
-        email: usuario.email,
-        password: usuario.senha
-    ).then((FirebaseUser) {
-      setState(() {
-        _mensagemErro = "Cadastro realizado!";
-      });
-      //redireciona para tela principal
-      Navigator.pushReplacementNamed(context, "/login");
-    });
-  }
-
-  // _logarUsuario(Usuario usuario) {
-  //   FirebaseAuth auth = FirebaseAuth.instance;
-  //
-  //   auth.signInWithEmailAndPassword(
-  //       email: usuario.email,
-  //       password: usuario.senha
-  //   ).then((FirebaseUser) {
-  //     //redireciona para tela principal
-  //     Navigator.pushReplacementNamed(context, "/");
-  //   });
-  // }
 
   _validarCampos() {
     //Recupera dados dos campos
     String nome = _controllerNome.text;
     String email = _controllerEmail.text;
-    //String cpf = _controllerCpf.text;
+    String cpf = _controllerCpf.text;
     String telefone = _controllerTelefone.text;
     String senha = _controllerSenha.text;
 
-    if (email.isNotEmpty && email.contains("@")) {
-      if (telefone.isNotEmpty && telefone.length >= 8) {
-        if (nome.length >= 3) {
-          if (senha.isNotEmpty && senha.length >= 6) {
+    if (nome.length >= 3) {
+      if (GetUtils.isCpf(cpf) && cpf.length >= 11) {
+        if (telefone.isNotEmpty && telefone.length >= 8) {
+          if (email.isNotEmpty && email.contains("@")) {
+            if (senha.isNotEmpty && senha.length >= 6) {
+              setState(() {
+                _mensagemErro = "";
+              });
 
-            //Configurar usuário
-            Usuario usuario = Usuario();
-            usuario.senha = senha;
-            usuario.email = email;
-            usuario.nome = nome;
-            usuario.telefone = telefone;
+              //Configurar usuário
+              Usuario usuario = Usuario();
+              usuario.senha = senha;
+              usuario.email = email;
+              usuario.nome = nome;
+              usuario.telefone = telefone;
+              usuario.cpf = cpf;
 
-            // //Cadastrar ou Logar
-            // if (_cadastrar) {
-            //   //Cadastrar
               _cadastrarUsuario(usuario);
-            // } else {
-            //   //Logar
-            //   _logarUsuario(usuario);
-            // }
+
+            } else {
+              setState(() {
+                _mensagemErro =
+                    "Preencha a senha! Digite 6 ou mais caracteres!";
+              });
+            }
           } else {
             setState(() {
-              _mensagemErro =
-              "Preencha a senha! Digite 6 ou mais caracteres!";
+              _mensagemErro = "Digita um e-mail válido!";
             });
           }
         } else {
           setState(() {
-            _mensagemErro = "Digita um e-mail válido!";
+            _mensagemErro = "Digite um telefone válido!";
           });
         }
       } else {
         setState(() {
-          _mensagemErro = "Digite um telefone válido!";
+          _mensagemErro = "Digite um CPF válido!";
         });
       }
     } else {
@@ -100,122 +83,220 @@ class _NovoUsuarioState extends State<NovoUsuario> {
     }
   }
 
-    @override
-    Widget build(BuildContext context) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text("Novo Usuário"),
+  _cadastrarUsuario(Usuario usuario) {
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    auth.createUserWithEmailAndPassword(
+        email: usuario.email,
+        password: usuario.senha)
+        .then((FirebaseUser) {
+      //Salvar dados do usuário
+      FirebaseFirestore db = FirebaseFirestore.instance;
+      db
+          .collection("usuarios")
+          .doc(FirebaseUser.user!.uid)
+          .set(usuario.toMap());
+
+      //redireciona para tela principal
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Login()));
+
+    }).catchError((error) {
+      print("erro app: " + error.toString());
+      setState(() {
+        _mensagemErro =
+            "Erro ao cadastrar usuário, verifique os campos e tente novamente!";
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Novo Usuário",
+          style: GoogleFonts.lato(
+            textStyle: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+          ),
         ),
-        body: Container(
-          // decoration: BoxDecoration(color: Color(0xffeeeef3)),
-          padding: EdgeInsets.all(16),
-          child: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                //tamanho do botão "entrar"
-                children: <Widget>[
-
-                  Padding(padding: EdgeInsets.only(bottom: 32),
-                    child: Image.asset(
-                      "imagens/logo.png",
-                      width: 200,
-                      height: 150,
-                    ),
+        centerTitle: true,
+        titleSpacing: 0,
+        elevation: 0,
+      ),
+      body: Container(
+        // decoration: BoxDecoration(color: Color(0xffeeeef3)),
+        padding: EdgeInsets.all(16),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              //tamanho do botão "entrar"
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(bottom: 32),
+                  child: Image.asset(
+                    "imagens/logo.png",
+                    width: 200,
+                    height: 150,
                   ),
+                ),
 
-                  InputCustomizado(
+                // InputCustomizado(
+                //     controller: _controllerNome,
+                //     hint: "Nome",
+                //     onSaved: (nome) {
+                //       usuario.nome = nome.toString();
+                //     },
+                //     autofocus: true,
+                //     maxLines: 1,
+                //     type: TextInputType.text,
+                //   ),
+
+
+                Padding(
+                  padding: EdgeInsets.only(bottom: 8),
+                  child: InputCustomizado(
                     controller: _controllerNome,
                     hint: "Nome",
                     autofocus: true,
                     maxLines: 1,
                     type: TextInputType.text,
                   ),
+                ),
 
-                  Padding(
-                      padding: EdgeInsets.only(top: 5)),
 
-                  // InputCustomizado(
-                  //   controller: _controllerCpf,
-                  //   hint: "CPF",
-                  //   maxLines: 1,
-                  //   type: TextInputType.text,
-                  // ),
+                // Padding(padding: EdgeInsets.only(top: 5)),
+                // InputCustomizado(
+                //   controller: _controllerCpf,
+                //   hint: "CPF",
+                //   onSaved: (cpf) {
+                //     usuario.cpf = cpf.toString();
+                //   },
+                //   maxLines: 1,
+                //   type: TextInputType.text,
+                //   inputFormatters: [
+                //     FilteringTextInputFormatter.digitsOnly,
+                //     CpfInputFormatter()
+                //   ],
+                // ),
 
-                  Padding(
-                      padding: EdgeInsets.only(top: 5)),
 
-                  InputCustomizado(
+                Padding(
+                  padding: EdgeInsets.only(bottom: 8),
+                  child: InputCustomizado(
+                    controller: _controllerCpf,
+                    hint: "CPF",
+                    autofocus: true,
+                    maxLines: 1,
+                    type: TextInputType.text,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      CpfInputFormatter()
+                    ],
+                  ),
+                ),
+
+
+                // Padding(padding: EdgeInsets.only(top: 5)),
+                // InputCustomizado(
+                //   controller: _controllerTelefone,
+                //   hint: "Telefone",
+                //   onSaved: (telefone) {
+                //     usuario.telefone = telefone.toString();
+                //   },
+                //   maxLines: 1,
+                //   type: TextInputType.phone,
+                //   inputFormatters: [
+                //     FilteringTextInputFormatter.digitsOnly,
+                //     TelefoneInputFormatter()
+                //   ],
+                // ),
+
+
+                Padding(
+                  padding: EdgeInsets.only(bottom: 8),
+                  child: InputCustomizado(
                     controller: _controllerTelefone,
                     hint: "Telefone",
+                    autofocus: true,
                     maxLines: 1,
-                    type: TextInputType.phone,
+                    type: TextInputType.text,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      TelefoneInputFormatter()
+                    ],
                   ),
+                ),
 
-                  Padding(
-                      padding: EdgeInsets.only(top: 5)),
 
-                  InputCustomizado(
+                // Padding(padding: EdgeInsets.only(top: 5)),
+                // InputCustomizado(
+                //   controller: _controllerEmail,
+                //   hint: "E-mail",
+                //   onSaved: (email) {
+                //     usuario.email = email.toString();
+                //   },
+                //   maxLines: 1,
+                //   type: TextInputType.emailAddress,
+                // ),
+
+                Padding(
+                  padding: EdgeInsets.only(bottom: 8),
+                  child: InputCustomizado(
                     controller: _controllerEmail,
                     hint: "E-mail",
+                    autofocus: true,
                     maxLines: 1,
-                    type: TextInputType.emailAddress,
+                    type: TextInputType.text,
                   ),
+                ),
 
-                  Padding(
-                      padding: EdgeInsets.only(top: 5)),
 
-                  InputCustomizado(
+                // Padding(padding: EdgeInsets.only(top: 5)),
+                // InputCustomizado(
+                //   controller: _controllerSenha,
+                //   hint: "Senha",
+                //   onSaved: (senha) {
+                //     usuario.senha = senha.toString();
+                //   },
+                //   obscure: true,
+                //   maxLines: 1,
+                // ),
+
+
+                Padding(
+                  padding: EdgeInsets.only(bottom: 8),
+                  child: InputCustomizado(
                     controller: _controllerSenha,
                     hint: "Senha",
                     obscure: true,
                     maxLines: 1,
+                    type: TextInputType.text,
                   ),
+                ),
 
-                  Padding(
-                      padding: EdgeInsets.only(top: 16, bottom: 10)),
 
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: <Widget>[
-                  //     Text("Logar"),
-                  //     Switch(
-                  //       value: _cadastrar,
-                  //       onChanged: (bool valor){
-                  //         setState(() {
-                  //           _cadastrar = valor;
-                  //           _textoBotao = "Entrar";
-                  //           if(_cadastrar ){
-                  //             _textoBotao = "Cadastre-se";
-                  //           }
-                  //         });
-                  //       },
-                  //     ),
-                  //     Text("Cadastrar"),
-                  //   ],
-                  // ),
-
-                  BotaoCustomizado(
-                    texto: _textoBotao,
-                    onPressed: () {
-                      _validarCampos();
-                    },
+                Padding(padding: EdgeInsets.only(top: 16, bottom: 10)),
+                BotaoCustomizado(
+                  texto: _textoBotao,
+                  onPressed: () {
+                    _validarCampos();
+                  },
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: Text(
+                    _mensagemErro,
+                    style: TextStyle(fontSize: 16, color: Colors.red),
                   ),
-
-                  Padding(
-                    padding: EdgeInsets.only(top: 20),
-                    child: Text(_mensagemErro, style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.red
-                    ),),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
-      );
-    }
+      ),
+    );
   }
-
-
+}

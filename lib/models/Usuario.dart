@@ -1,10 +1,10 @@
 class Usuario{
 
-  late String _cpf;
-  late String _nome;
-  late String _email;
-  late String _telefone;
-  late String _senha;
+   String? _cpf;
+   String? _nome;
+   String? _email;
+   String? _telefone;
+   String? _senha;
 
   Usuario();
 
@@ -21,31 +21,31 @@ class Usuario{
     return map;
   }
 
-  String get senha => _senha;
+  String get senha => _senha!;
 
   set senha(String value) {
     _senha = value;
   }
 
-  String get telefone => _telefone;
+  String get telefone => _telefone!;
 
   set telefone(String value) {
     _telefone = value;
   }
 
-  String get email => _email;
+  String get email => _email!;
 
   set email(String value) {
     _email = value;
   }
 
-  String get nome => _nome;
+  String get nome => _nome!;
 
   set nome(String value) {
     _nome = value;
   }
 
-  String get cpf => _cpf;
+  String get cpf => _cpf!;
 
   set cpf(String value) {
     _cpf = value;

@@ -7,61 +7,41 @@ import 'package:encontrei_pet/models/Anuncio.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-import 'ExibirImagem.dart';
 
-
-class DetalhesAnuncio extends StatefulWidget {
+class DetalhesInteresse extends StatefulWidget {
 
   Anuncio anuncio;
-  DetalhesAnuncio(this.anuncio);
+  DetalhesInteresse(this.anuncio);
 
 
   @override
-  _DetalhesAnuncioState createState() => _DetalhesAnuncioState();
+  _DetalhesInteresseState createState() => _DetalhesInteresseState();
 }
 
-class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
+class _DetalhesInteresseState extends State<DetalhesInteresse> {
 
 
   late Anuncio _anuncio;
   // String _mensagemErro = "";
 
-  // List<Widget> _getListaImagens(){
-  //
-  //   List<String> listaUrlImagens = _anuncio.fotos;
-  //   return listaUrlImagens.map((url){
-  //     return Container(
-  //       height: 250,
-  //       decoration: BoxDecoration(
-  //           image: DecorationImage(
-  //               image: NetworkImage(url),
-  //               fit: BoxFit.fitWidth
-  //           )
-  //       ),
-  //     );
-  //   }).toList();
-  //
-  // }
+  List<Widget> _getListaImagens(){
 
-  List<Widget> _getListaImagens() {
     List<String> listaUrlImagens = _anuncio.fotos;
-    return listaUrlImagens.map((url) {
-      return GestureDetector(
-        onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => ExibirImagem(url)));
-        },
-        child: Container(
-          height: 250,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: NetworkImage(url),
-                  fit: BoxFit.fitWidth
-              )
-          ),
+    return listaUrlImagens.map((url){
+      return Container(
+        height: 250,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: NetworkImage(url),
+                fit: BoxFit.fitWidth
+            )
         ),
       );
     }).toList();
+
   }
+
+
 
   @override
   void initState() {
@@ -132,34 +112,6 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
                 //       fontWeight: FontWeight.w400
                 //   ),
                 // ),
-
-                //ESPECIE
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      "Espécie:",
-                      style: GoogleFonts.lato( textStyle: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold
-                      ),
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                    Text(
-                      " ${_anuncio.especie}",
-                      style: GoogleFonts.lato( textStyle: TextStyle(
-                        fontSize: 18,
-                      ),
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                  ],
-                ),
-
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 4),
-                ),
 
                 //IDADE
                 Row(
@@ -564,32 +516,7 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
 
         ],),
 
-        //Exemplo de Ligação
-        // Positioned(
-        //   left: 16,
-        //   right: 16,
-        //   bottom: 16,
-        //   child: GestureDetector(
-        //     child: Container(
-        //       child: Text(
-        //         "Ligar",
-        //         style: TextStyle(
-        //             color: Colors.white,
-        //             fontSize: 20
-        //         ),
-        //       ),
-        //       padding: EdgeInsets.all(16),
-        //       alignment: Alignment.center,
-        //       decoration: BoxDecoration(
-        //           color: temaPadrao.primaryColor,
-        //           borderRadius: BorderRadius.circular(30)
-        //       ),
-        //     ),
-        //     onTap: (){
-        //       _ligarTelefone(_anuncio.telefone);
-        //     },
-        //   ),
-        // ),
+
 
         Positioned(
           left: 16,

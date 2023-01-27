@@ -1,9 +1,13 @@
 import 'package:encontrei_pet/models/Usuario.dart';
+import 'package:encontrei_pet/views/Dashboard.dart';
 import 'package:encontrei_pet/views/NovoUsuario.dart';
 import 'package:encontrei_pet/views/widgets/BotaoCustomizado.dart';
 import 'package:encontrei_pet/views/widgets/InputCustomizado.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'Anuncios.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -15,7 +19,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
 
   TextEditingController _controllerEmail = TextEditingController(text: "gabrielln13@gmail.com");
-  TextEditingController _controllerSenha = TextEditingController(text: "123456");
+  TextEditingController _controllerSenha = TextEditingController(text: "1234567");
 
   bool _cadastrar = false;
   String _mensagemErro = "";
@@ -45,7 +49,12 @@ class _LoginState extends State<Login> {
     ).then((FirebaseUser) {
 
       //redireciona para tela principal
-      Navigator.pushReplacementNamed(context, "/");
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Dashboard()
+          )
+      );
 
     });
 }
@@ -124,26 +133,6 @@ class _LoginState extends State<Login> {
                 Padding(
                     padding: EdgeInsets.only(top:16, bottom: 10)),
 
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: <Widget>[
-                //     Text("Logar"),
-                //     Switch(
-                //       value: _cadastrar,
-                //       onChanged: (bool valor){
-                //         setState(() {
-                //           _cadastrar = valor;
-                //           _textoBotao = "Entrar";
-                //           if(_cadastrar ){
-                //             _textoBotao = "Cadastre-se";
-                //           }
-                //         });
-                //       },
-                //     ),
-                //     Text("Cadastrar"),
-                //   ],
-                // ),
-
                 BotaoCustomizado(
                   texto: _textoBotao,
                   onPressed: () {
@@ -152,12 +141,14 @@ class _LoginState extends State<Login> {
                 ),
 
                 Padding(
-                    padding: EdgeInsets.all(16),
+                    padding: EdgeInsets.all(25),
                 child: GestureDetector(
-                  child: Text("Não tem conta? Cadastre-se",
-                  style: TextStyle(
-                    color: Colors.black
+                  child: Text("Não tem conta? Cadastre-se!",
+                  style: GoogleFonts.lato( textStyle: TextStyle(
+                    color: Colors.black,
+                      fontSize: 16
                   )
+                  ),
                   ),
                   onTap: (){
                     Navigator.push(

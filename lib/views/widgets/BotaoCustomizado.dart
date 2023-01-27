@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BotaoCustomizado extends StatelessWidget {
   final String texto;
@@ -25,8 +26,9 @@ class BotaoCustomizado extends StatelessWidget {
       ),
       child: Text(
         this.texto,
-        style: TextStyle(
+        style: GoogleFonts.lato( textStyle: TextStyle(
             color: this.corTexto, fontSize: 20
+        ),
         ),
       ),
       onPressed: this.onPressed,

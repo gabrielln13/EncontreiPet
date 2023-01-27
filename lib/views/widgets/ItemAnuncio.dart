@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import '../../main.dart';
 import '../../models/Anuncio.dart';
 
 class ItemAnuncio extends StatelessWidget {
@@ -7,11 +9,13 @@ class ItemAnuncio extends StatelessWidget {
   Anuncio anuncio;
   VoidCallback? onTapItem;
   VoidCallback? onPressedRemover;
+  VoidCallback? onPressedEditar;
 
-  ItemAnuncio({
+  ItemAnuncio({super.key,
     required this.anuncio,
     this.onTapItem,
-    this.onPressedRemover
+    this.onPressedRemover,
+    this.onPressedEditar
   });
 
   @override
@@ -33,27 +37,182 @@ class ItemAnuncio extends StatelessWidget {
               ),
             ),
 
-            //Título e preço
+            //DADOS
             Expanded(
-              flex: 3,
+              flex: 4,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                  Text(
-                    anuncio.titulo,
-                    style: TextStyle(
+
+                    //NOME
+                    Text(
+                    "${anuncio.nome}",
+                    style: GoogleFonts.lato( textStyle: TextStyle(
                       fontSize: 18,
-                      fontWeight: FontWeight.bold
+                      fontWeight: FontWeight.bold,
+                        color: temaPadrao.primaryColor
+                    ),
                     ),
                   ),
-                  Text("R\$ ${anuncio.preco} "),
+
+                // Text(
+                //   "Cor: ${anuncio.cor}",
+                //   style: TextStyle(
+                //       fontSize: 16,
+                //   ),
+                // ),
+
+                    //COR
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Espécie:",
+                          style: GoogleFonts.lato( textStyle: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold
+                          ),
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                        Text(
+                          " ${anuncio.especie}",
+                          style: GoogleFonts.lato( textStyle: TextStyle(
+                            fontSize: 16,
+                          ),
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                      ],
+                    ),
+
+                    //COR
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Cor:",
+                          style: GoogleFonts.lato( textStyle: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold
+                          ),
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                        Text(
+                          " ${anuncio.cor}",
+                          style: GoogleFonts.lato( textStyle: TextStyle(
+                            fontSize: 16,
+                          ),
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                      ],
+                    ),
+
+                    // Text(
+                    //   "Idade: ${anuncio.idade} Anos ",
+                    //   style: TextStyle(
+                    //     fontSize: 16,
+                    //   ),
+                    // ),
+
+                    //IDADE
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Idade:",
+                          style: GoogleFonts.lato( textStyle: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold
+                          ),
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                        Text(
+                          " ${anuncio.idade} Anos",
+                          style: GoogleFonts.lato( textStyle: TextStyle(
+                            fontSize: 16,
+                          ),
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                      ],
+                    ),
+
+                    // Text(
+                    //   "Sexo: ${anuncio.sexo}",
+                    //   style: TextStyle(
+                    //     fontSize: 16,
+                    //   ),
+                    // ),
+
+                    //SEXO
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Sexo:",
+                          style: GoogleFonts.lato( textStyle: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold
+                          ),
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                        Text(
+                          " ${anuncio.sexo}",
+                          style: GoogleFonts.lato( textStyle: TextStyle(
+                            fontSize: 16,
+                          ),
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                      ],
+                    ),
+
+                    // //SITUAÇÃO
+                    // Row(
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   children: <Widget>[
+                    //     Text(
+                    //       "Status:",
+                    //       style: GoogleFonts.lato( textStyle: TextStyle(
+                    //           fontSize: 16,
+                    //           fontWeight: FontWeight.bold
+                    //       ),
+                    //       ),
+                    //       textAlign: TextAlign.left,
+                    //     ),
+                    //     Text(
+                    //       " ${anuncio.situacao}",
+                    //       style: GoogleFonts.lato( textStyle: TextStyle(
+                    //         fontSize: 16,
+                    //       ),
+                    //       ),
+                    //       textAlign: TextAlign.left,
+                    //     ),
+                    //   ],
+                    // ),
+
                 ],),
               ),
             ),
 
-            //Botão Remover
+            //BOTÃO EDITAR
+            if( this.onPressedEditar != null ) Expanded(
+              flex: 1,
+              child: MaterialButton(
+                padding: EdgeInsets.all(10),
+                onPressed: this.onPressedEditar,
+                child: Icon(Icons.edit, color: Colors.grey,),
+              ),
+            ),
+
+            //BOTÃO REMOVER
             if( this.onPressedRemover != null ) Expanded(
               flex: 1,
               child: MaterialButton(
@@ -62,8 +221,7 @@ class ItemAnuncio extends StatelessWidget {
                 onPressed: this.onPressedRemover,
                 child: Icon(Icons.delete, color: Colors.red,),
               ),
-            )
-            //botao remover
+            ),
 
           ],),
         ),

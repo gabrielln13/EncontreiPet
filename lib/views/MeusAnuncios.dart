@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:encontrei_pet/views/EditarAnuncio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:encontrei_pet/models/Anuncio.dart';
 import 'package:encontrei_pet/views/widgets/ItemAnuncio.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MeusAnuncios extends StatefulWidget {
   @override
@@ -11,6 +13,8 @@ class MeusAnuncios extends StatefulWidget {
 }
 
 class _MeusAnunciosState extends State<MeusAnuncios> {
+
+  late Anuncio _anuncio;
 
   final _controller = StreamController<QuerySnapshot>.broadcast();
   late String _idUsuarioLogado;
@@ -23,6 +27,8 @@ class _MeusAnunciosState extends State<MeusAnuncios> {
 
   }
 
+  FirebaseFirestore db = FirebaseFirestore.instance;
+
   Future<Stream<QuerySnapshot>?> _adicionarListenerAnuncios() async {
 
     await _recuperaDadosUsuarioLogado();
@@ -32,6 +38,7 @@ class _MeusAnunciosState extends State<MeusAnuncios> {
         .collection("meus_anuncios")
         .doc( _idUsuarioLogado )
         .collection("anuncios")
+        .orderBy("dataCadastro", descending: true)
         .snapshots();
 
     stream.listen((dados){
@@ -68,14 +75,29 @@ class _MeusAnunciosState extends State<MeusAnuncios> {
 
     var carregandoDados = Center(
       child: Column(children: <Widget>[
-        Text("Carregando anúncios"),
+        Text("Carregando anúncios",
+        style: GoogleFonts.lato(
+          textStyle: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold
+          ),),),
         CircularProgressIndicator()
       ],),
     );
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Meus Anúncios"),
+        title: Text("Meus Anúncios",
+          style: GoogleFonts.lato( textStyle: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.white
+          ),
+          ),
+        ),
+        centerTitle: true,
+        titleSpacing: 0,
+        elevation: 0,
       ),
       floatingActionButton: FloatingActionButton(
 //         //backgroundColor: Color.fromARGB(250, 255, 179, 0),
@@ -88,6 +110,8 @@ class _MeusAnunciosState extends State<MeusAnuncios> {
       ),
       body: StreamBuilder(
         stream: _controller.stream,
+        // stream: db.collection("anuncios").orderBy(
+        //     "dataCadastro", descending: true).snapshots(),
         builder: (context, snapshot){
 
           switch( snapshot.connectionState ){
@@ -99,10 +123,30 @@ class _MeusAnunciosState extends State<MeusAnuncios> {
             case ConnectionState.done:
 
             //Exibe mensagem de erro
-              if(snapshot.hasError)
-                return Text("Erro ao carregar os dados!");
+              if(snapshot.hasError) {
+                return Text("Erro ao carregar os dados!",
+                  style: GoogleFonts.lato(
+                    textStyle: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold
+                ),),);
+              }
 
               QuerySnapshot querySnapshot = snapshot.data as QuerySnapshot;
+
+              if( querySnapshot.docs.length == 0 ){
+                return Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.all(25),
+                  child: Text("Nenhum anúncio!",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.lato(
+                      textStyle: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold
+                  ),),),
+                );
+              }
 
               return ListView.builder(
                   itemCount: querySnapshot.docs.length,
@@ -114,6 +158,26 @@ class _MeusAnunciosState extends State<MeusAnuncios> {
 
                     return ItemAnuncio(
                       anuncio: anuncio,
+
+                      //IR PARA TELA DE INTERESSADOS
+                      onTapItem: (){
+                        Navigator.pushNamed(
+                            context, "/interesses",
+                            arguments: anuncio
+                        );
+                      },
+
+                      //EDITAR ANÚNCIO
+                      onPressedEditar: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EditarAnuncio(idAnuncio: anuncio.id,)
+                            )
+                        );
+                      },
+
+                      //REMOVER ANÚNCIO
                       onPressedRemover: (){
                         showDialog(
                             context: context,
@@ -148,8 +212,6 @@ class _MeusAnunciosState extends State<MeusAnuncios> {
                                       Navigator.of(context).pop();
                                     },
                                   ),
-
-
                                 ],
                               );
                             }
@@ -158,7 +220,6 @@ class _MeusAnunciosState extends State<MeusAnuncios> {
                     );
                   }
               );
-
           }
 
           return Container();

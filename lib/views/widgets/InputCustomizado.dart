@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class InputCustomizado extends StatelessWidget {
 
   final TextEditingController controller;
   final String hint;
+  final String? labelText;
   final bool obscure;
   final bool autofocus;
   final TextInputType type;
@@ -23,7 +25,8 @@ class InputCustomizado extends StatelessWidget {
     this.inputFormatters,
     required this.maxLines,
     this.validator,
-    this.onSaved
+    this.onSaved,
+    this.labelText
 
   });
 
@@ -38,8 +41,9 @@ class InputCustomizado extends StatelessWidget {
       validator: this.validator,
       maxLines: this.maxLines,
       onSaved: this.onSaved,
-      style: TextStyle(fontSize: 20),
+      style: GoogleFonts.lato( textStyle: TextStyle(fontSize: 16),),
       decoration: InputDecoration(
+          labelText: this.labelText,
           contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
           hintText: this.hint,
           filled: true,
