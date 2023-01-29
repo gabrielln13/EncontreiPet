@@ -26,23 +26,6 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
   late Anuncio _anuncio;
   // String _mensagemErro = "";
 
-  // List<Widget> _getListaImagens(){
-  //
-  //   List<String> listaUrlImagens = _anuncio.fotos;
-  //   return listaUrlImagens.map((url){
-  //     return Container(
-  //       height: 250,
-  //       decoration: BoxDecoration(
-  //           image: DecorationImage(
-  //               image: NetworkImage(url),
-  //               fit: BoxFit.fitWidth
-  //           )
-  //       ),
-  //     );
-  //   }).toList();
-  //
-  // }
-
   List<Widget> _getListaImagens() {
     List<String> listaUrlImagens = _anuncio.fotos;
     return listaUrlImagens.map((url) {
@@ -124,15 +107,6 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
                   padding: EdgeInsets.symmetric(vertical: 4),
                 ),
 
-
-                // Text(
-                //   "Idade: ${_anuncio.idade} Anos",
-                //   style: TextStyle(
-                //       fontSize: 18,
-                //       fontWeight: FontWeight.w400
-                //   ),
-                // ),
-
                 //ESPECIE
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -213,14 +187,6 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
                   ],
                 ),
 
-                // Text(
-                //   "Sexo: ${_anuncio.sexo}",
-                //   style: TextStyle(
-                //       fontSize: 18,
-                //       fontWeight: FontWeight.w400
-                //   ),
-                // ),
-
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 4),
                 ),
@@ -249,14 +215,6 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
                   ],
                 ),
 
-                // Text(
-                //   "Raça: ${_anuncio.raca}",
-                //   style: TextStyle(
-                //       fontSize: 18,
-                //       fontWeight: FontWeight.w400
-                //   ),
-                // ),
-
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 4),
                 ),
@@ -284,13 +242,6 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
                     ),
                   ],
                 ),
-
-                // Text(
-                //   "Cor: ${_anuncio.cor}",
-                //   style: TextStyle(
-                //       fontSize: 18
-                //   ),
-                // ),
 
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 16),
@@ -336,13 +287,6 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
                   ],
                 ),
 
-                // Text(
-                //   "Porte: ${_anuncio.porte}",
-                //   style: TextStyle(
-                //       fontSize: 18
-                //   ),
-                // ),
-
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 4),
                 ),
@@ -370,13 +314,6 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
                     ),
                   ],
                 ),
-
-                // Text(
-                //   "Temperamento: ${_anuncio.temperamento}",
-                //   style: TextStyle(
-                //       fontSize: 18
-                //   ),
-                // ),
 
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 4),
@@ -406,13 +343,6 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
                   ],
                 ),
 
-                // Text(
-                //   "Chip: ${_anuncio.chip}",
-                //   style: TextStyle(
-                //       fontSize: 18
-                //   ),
-                // ),
-
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 4),
                 ),
@@ -441,13 +371,6 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
                   ],
                 ),
 
-                // Text(
-                //   "Vacinação: ${_anuncio.vacinacao}",
-                //   style: TextStyle(
-                //       fontSize: 18
-                //   ),
-                // ),
-
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 4),
                 ),
@@ -475,13 +398,6 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
                     ),
                   ],
                 ),
-
-                // Text(
-                //   "Doenças: ${_anuncio.doenca}",
-                //   style: TextStyle(
-                //       fontSize: 18
-                //   ),
-                // ),
 
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 4),

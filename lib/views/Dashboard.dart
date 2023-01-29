@@ -77,7 +77,7 @@ class _DashboardState extends State<Dashboard> {
         titleSpacing: 0,
         actions: <Widget>[
           PopupMenuButton<String>(
-            icon: Icon(Icons.exit_to_app, color: Colors.grey),
+            icon: Icon(Icons.account_circle, color: Colors.grey),
             onSelected: _escolhaMenuItem,
             itemBuilder: (context){
               return itensMenu.map((String item){

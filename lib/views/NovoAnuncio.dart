@@ -545,6 +545,7 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                 Padding(
                     padding: EdgeInsets.only(bottom: 15, top: 15),
                   child: InputCustomizado(
+                    upperFirstLetter: true,
                     controller: _nomeController,
                     hint: "Nome",
                     onSaved: (nome){
@@ -562,6 +563,7 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
+                    upperFirstLetter: true,
                     controller: _corController,
                     hint: "Cor",
                     onSaved: (cor){
@@ -580,6 +582,7 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
+                    upperFirstLetter: true,
                     controller: _racaController,
                     hint: "Raça",
                     onSaved: (raca){
@@ -598,6 +601,7 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
+                    upperFirstLetter: false,
                     controller: _idadeController,
                     hint: "Idade Aproximada",
                     onSaved: (idade){
@@ -616,6 +620,7 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
+                    upperFirstLetter: true,
                     controller: _vacinacaoController,
                     hint: "Vacinação (Descreva as vacinas)",
                     onSaved: (vacinacao){
@@ -634,6 +639,7 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
+                    upperFirstLetter: true,
                     controller: _doencaController,
                     hint: "Doenças (Descreva as doenças, se houver)",
                     onSaved: (doenca){
@@ -652,6 +658,7 @@ class _NovoAnuncioState extends State<NovoAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
+                    upperFirstLetter: true,
                     controller: _descricaoController,
                     hint: "Descrição (Campo livre)",
                     onSaved: (descricao){

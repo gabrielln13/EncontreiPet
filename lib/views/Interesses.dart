@@ -72,15 +72,6 @@ class _InteressesState extends State<Interesses> {
     }
   }
 
-  // // Exemplo de ligação
-  // _ligarTelefone(_telefoneUsuarioInteressado) async {
-  //   if( await canLaunch("tel:$_telefoneUsuarioInteressado") ){
-  //     await launch("tel:$_telefoneUsuarioInteressado");
-  //   }else{
-  //     print("Não pode fazer a ligação");
-  //   }
-  // }
-
   _ligarTelefone(String _telefoneUsuarioInteressado) async {
     var formattedNumber = "+55" + _telefoneUsuarioInteressado.replaceAll(new RegExp(r'[^\+\d]'), "");
     var url = "tel:$formattedNumber";
@@ -107,31 +98,31 @@ class _InteressesState extends State<Interesses> {
     }
   }
 
-  // _abrirWhatsApp(String _telefoneUsuarioInteressado) async {
-  //   var formattedNumber = "+55" + _telefoneUsuarioInteressado.replaceAll(new RegExp(r'[^\d]'), "");
-  //   var url = "whatsapp:$formattedNumber";
-  //   if (await canLaunch(url)){
-  //     await launch(url);
-  //   }else{
-  //     showDialog(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return AlertDialog(
-  //           title: Text("Erro"),
-  //           content: Text("Não foi possível abrir o WhatsApp"),
-  //           actions: <Widget>[
-  //             MaterialButton(
-  //               child: Text("OK"),
-  //               onPressed: () {
-  //                 Navigator.of(context).pop();
-  //               },
-  //             )
-  //           ],
-  //         );
-  //       },
-  //     );
-  //   }
-  // }
+  _abrirWhatsApp(_telefoneUsuarioInteressado) async {
+    var formattedNumber = "+55" + _telefoneUsuarioInteressado.replaceAll(new RegExp(r'[^\+\d]'), "");
+    var url = "whatsapp://send?phone=$formattedNumber";
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Erro"),
+            content: Text("Não foi possível abrir o WhatsApp"),
+            actions: <Widget>[
+              MaterialButton(
+                child: Text("OK"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        },
+      );
+    }
+  }
 
   @override
   void initState() {
@@ -226,10 +217,10 @@ class _InteressesState extends State<Interesses> {
                                 _ligarTelefone(_telefoneUsuarioInteressado!);
                               },
 
-                              // //WHATSAPP
-                              // onPressedWhats: (){
-                              //   _abrirWhatsApp(_telefoneUsuarioInteressado!);
-                              // },
+                              //WHATSAPP
+                              onPressedWhatsapp: (){
+                                _abrirWhatsApp(_telefoneUsuarioInteressado!);
+                              },
 
                             );
                           }),

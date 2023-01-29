@@ -57,13 +57,6 @@ class ItemAnuncio extends StatelessWidget {
                     ),
                   ),
 
-                // Text(
-                //   "Cor: ${anuncio.cor}",
-                //   style: TextStyle(
-                //       fontSize: 16,
-                //   ),
-                // ),
-
                     //COR
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,

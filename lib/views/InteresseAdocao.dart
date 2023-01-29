@@ -571,6 +571,7 @@ class _InteresseAdocaoState extends State<InteresseAdocao> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
+                    upperFirstLetter: true,
                     controller: _descricaoController,
                     hint: "Qual o motivo do seu interesse?",
                     onSaved: (descricao){

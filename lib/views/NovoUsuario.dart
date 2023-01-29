@@ -143,21 +143,10 @@ class _NovoUsuarioState extends State<NovoUsuario> {
                   ),
                 ),
 
-                // InputCustomizado(
-                //     controller: _controllerNome,
-                //     hint: "Nome",
-                //     onSaved: (nome) {
-                //       usuario.nome = nome.toString();
-                //     },
-                //     autofocus: true,
-                //     maxLines: 1,
-                //     type: TextInputType.text,
-                //   ),
-
-
                 Padding(
                   padding: EdgeInsets.only(bottom: 8),
                   child: InputCustomizado(
+                    upperFirstLetter: true,
                     controller: _controllerNome,
                     hint: "Nome",
                     autofocus: true,
@@ -167,25 +156,10 @@ class _NovoUsuarioState extends State<NovoUsuario> {
                 ),
 
 
-                // Padding(padding: EdgeInsets.only(top: 5)),
-                // InputCustomizado(
-                //   controller: _controllerCpf,
-                //   hint: "CPF",
-                //   onSaved: (cpf) {
-                //     usuario.cpf = cpf.toString();
-                //   },
-                //   maxLines: 1,
-                //   type: TextInputType.text,
-                //   inputFormatters: [
-                //     FilteringTextInputFormatter.digitsOnly,
-                //     CpfInputFormatter()
-                //   ],
-                // ),
-
-
                 Padding(
                   padding: EdgeInsets.only(bottom: 8),
                   child: InputCustomizado(
+                    upperFirstLetter: false,
                     controller: _controllerCpf,
                     hint: "CPF",
                     autofocus: true,
@@ -198,26 +172,10 @@ class _NovoUsuarioState extends State<NovoUsuario> {
                   ),
                 ),
 
-
-                // Padding(padding: EdgeInsets.only(top: 5)),
-                // InputCustomizado(
-                //   controller: _controllerTelefone,
-                //   hint: "Telefone",
-                //   onSaved: (telefone) {
-                //     usuario.telefone = telefone.toString();
-                //   },
-                //   maxLines: 1,
-                //   type: TextInputType.phone,
-                //   inputFormatters: [
-                //     FilteringTextInputFormatter.digitsOnly,
-                //     TelefoneInputFormatter()
-                //   ],
-                // ),
-
-
                 Padding(
                   padding: EdgeInsets.only(bottom: 8),
                   child: InputCustomizado(
+                    upperFirstLetter: false,
                     controller: _controllerTelefone,
                     hint: "Telefone",
                     autofocus: true,
@@ -230,21 +188,10 @@ class _NovoUsuarioState extends State<NovoUsuario> {
                   ),
                 ),
 
-
-                // Padding(padding: EdgeInsets.only(top: 5)),
-                // InputCustomizado(
-                //   controller: _controllerEmail,
-                //   hint: "E-mail",
-                //   onSaved: (email) {
-                //     usuario.email = email.toString();
-                //   },
-                //   maxLines: 1,
-                //   type: TextInputType.emailAddress,
-                // ),
-
                 Padding(
                   padding: EdgeInsets.only(bottom: 8),
                   child: InputCustomizado(
+                    upperFirstLetter: false,
                     controller: _controllerEmail,
                     hint: "E-mail",
                     autofocus: true,
@@ -253,22 +200,10 @@ class _NovoUsuarioState extends State<NovoUsuario> {
                   ),
                 ),
 
-
-                // Padding(padding: EdgeInsets.only(top: 5)),
-                // InputCustomizado(
-                //   controller: _controllerSenha,
-                //   hint: "Senha",
-                //   onSaved: (senha) {
-                //     usuario.senha = senha.toString();
-                //   },
-                //   obscure: true,
-                //   maxLines: 1,
-                // ),
-
-
                 Padding(
                   padding: EdgeInsets.only(bottom: 8),
                   child: InputCustomizado(
+                    upperFirstLetter: false,
                     controller: _controllerSenha,
                     hint: "Senha",
                     obscure: true,

@@ -14,6 +14,7 @@ class InputCustomizado extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final FormFieldValidator<String>? validator;
   final FormFieldValidator<String>? onSaved;
+  final bool upperFirstLetter;
 
   InputCustomizado({
     Key? key,
@@ -26,13 +27,14 @@ class InputCustomizado extends StatelessWidget {
     required this.maxLines,
     this.validator,
     this.onSaved,
-    this.labelText
-
+    this.labelText,
+    required this.upperFirstLetter
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      textCapitalization: TextCapitalization.words,
       controller: this.controller,
       obscureText: this.obscure,
       autofocus: this.autofocus,

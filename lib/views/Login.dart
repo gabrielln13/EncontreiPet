@@ -113,6 +113,7 @@ class _LoginState extends State<Login> {
                 ),
 
                 InputCustomizado(
+                  upperFirstLetter: false,
                   controller: _controllerEmail,
                   hint: "E-mail",
                   autofocus: true,
@@ -124,6 +125,7 @@ class _LoginState extends State<Login> {
                     padding: EdgeInsets.only(top:5)),
 
                 InputCustomizado(
+                  upperFirstLetter: false,
                   controller: _controllerSenha,
                   hint: "Senha",
                   obscure: true,

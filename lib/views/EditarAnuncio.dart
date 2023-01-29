@@ -598,6 +598,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15, top: 15),
                   child: InputCustomizado(
+                    upperFirstLetter: true,
                     labelText: "Nome",
                     controller: _nomeController,
                     hint: "Nome",
@@ -616,6 +617,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
+                    upperFirstLetter: true,
                     controller: _corController,
                     labelText: "Cor",
                     hint: "Cor",
@@ -635,6 +637,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
+                    upperFirstLetter: true,
                     controller: _racaController,
                     labelText: "Raça",
                     hint: "Raça",
@@ -654,6 +657,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
+                    upperFirstLetter: false,
                     controller: _idadeController,
                     labelText: "Idade",
                     hint: "Idade Aproximada",
@@ -673,6 +677,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
+                    upperFirstLetter: true,
                     controller: _vacinacaoController,
                     labelText: "Vacinação",
                     hint: "Vacinação (Descreva as vacinas)",
@@ -692,6 +697,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
+                    upperFirstLetter: true,
                     controller: _doencaController,
                     labelText: "Doenças",
                     hint: "Doenças (Descreva as doenças, se houver)",
@@ -705,6 +711,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
+                    upperFirstLetter: true,
                     controller: _descricaoController,
                     labelText: "Descrição",
                     hint: "Descrição (Campo livre)",
