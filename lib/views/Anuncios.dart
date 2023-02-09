@@ -24,6 +24,7 @@ class _AnunciosState extends State<Anuncios> {
   late List<DropdownMenuItem<String>> _listaItensDropTemperamento;
   late List<DropdownMenuItem<String>> _listaItensDropIdade;
   late List<DropdownMenuItem<String>> _listaItensDropEspecie;
+  late List<DropdownMenuItem<String>> _listaItensDropEstados;
 
   final _controler = StreamController<QuerySnapshot>.broadcast();
 
@@ -33,6 +34,7 @@ class _AnunciosState extends State<Anuncios> {
   String? _itemSelecionadoTemperamento;
   String? _itemSelecionadoIdade;
   String? _itemSelecionadoEspecie;
+  String? _itemSelecionadoEstado;
 
   late DocumentSnapshot lastDocument;
   bool hasMore = true;
@@ -56,15 +58,17 @@ class _AnunciosState extends State<Anuncios> {
     _listaItensDropTemperamento = Configuracoes.getTemperamento();
     //Listas de IDADE
     _listaItensDropIdade = Configuracoes.getIdade();
-    //Listas de IDADE
+    //Listas de ESPECIE
     _listaItensDropEspecie = Configuracoes.getEspecie();
+    //Listas de ESTADO
+    _listaItensDropEstados = Configuracoes.getEstados();
   }
 
   Future<Stream<QuerySnapshot>?> _adicionarListenerAnuncios() async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    User? usuarioLogado = await auth.currentUser;
-    if(usuarioLogado != null){
-      final uid = usuarioLogado.uid;
+    // FirebaseAuth auth = FirebaseAuth.instance;
+    // User? usuarioLogado = await auth.currentUser;
+    // if(usuarioLogado != null){
+    //   final uid = usuarioLogado.uid;
     FirebaseFirestore db = FirebaseFirestore.instance;
     Stream<QuerySnapshot> stream = db
         .collection("anuncios")
@@ -75,7 +79,7 @@ class _AnunciosState extends State<Anuncios> {
     stream.listen((dados) {
       _controler.add(dados);
     });
-  }
+  // }
   }
 
   Future<Stream<QuerySnapshot>?> _filtrarAnuncios() async {
@@ -99,6 +103,9 @@ class _AnunciosState extends State<Anuncios> {
     }
     if (_itemSelecionadoEspecie != null) {
       query = query.where("especie", isEqualTo: _itemSelecionadoEspecie);
+    }
+    if (_itemSelecionadoEstado != null) {
+      query = query.where("uf", isEqualTo: _itemSelecionadoEstado);
     }
 
     Stream<QuerySnapshot> stream = query.snapshots();
@@ -163,6 +170,21 @@ class _AnunciosState extends State<Anuncios> {
                             Column(
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
+
+                                //FILTRO ESTADO
+                                DropdownButton(
+                                  iconEnabledColor: temaPadrao.primaryColor,
+                                  value: _itemSelecionadoEstado,
+                                  items: _listaItensDropEstados,
+                                  style: GoogleFonts.lato(
+                                    textStyle: TextStyle(fontSize: 18, color: Colors.black),
+                                  ),
+                                  onChanged: (uf) {
+                                    setState(() {
+                                      _itemSelecionadoEstado = uf as String?;
+                                    });
+                                  },
+                                ),
 
                                 //FILTRO ESPECIE
                                 DropdownButton(
@@ -275,6 +297,7 @@ class _AnunciosState extends State<Anuncios> {
                                 _itemSelecionadoTemperamento = _listaItensDropTemperamento[0].value;
                                 _itemSelecionadoIdade = _listaItensDropIdade[0].value;
                                 _itemSelecionadoEspecie = _listaItensDropEspecie[0].value;
+                                _itemSelecionadoEstado = _listaItensDropEstados[0].value;
                                 Navigator.of(context).pop();
                               },
                             ),

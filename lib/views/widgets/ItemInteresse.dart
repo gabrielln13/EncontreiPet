@@ -284,37 +284,68 @@ class ItemInteresse extends StatelessWidget {
                           ),
                         ],
                       ),
+
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 4),
+                      ),
+
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            "Ações:",
+                            style: GoogleFonts.lato(
+                              textStyle: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
+                          Expanded(
+                            child: MaterialButton(
+                              onPressed: onPressedLigacao,
+                              child: Icon(FontAwesomeIcons.phone, color: Colors.green),
+                            ),
+                          ),
+                          Expanded(
+                            child: MaterialButton(
+                              onPressed: onPressedWhatsapp,
+                              child: Icon(FontAwesomeIcons.whatsapp, color: Colors.green),
+                            ),
+                          ),
+                        ],
+                      ),
+
                     ],
                   ),
                 ),
               ),
 
-              //BOTÃO LIGAR
-              if (this.onPressedLigacao != null)
-                Expanded(
-                  flex: 1,
-                  child: MaterialButton(
-                    //color: Colors.red,
-                    padding: EdgeInsets.all(10),
-                    onPressed: this.onPressedLigacao,
-                    child: Icon(FontAwesomeIcons.phone, color: Colors.green),
-                  ),
-                ),
-
-              //BOTÃO WHATSAPP
-              if (this.onPressedWhatsapp != null)
-                Expanded(
-                  flex: 1,
-                  child: MaterialButton(
-                    //color: Colors.red,
-                    padding: EdgeInsets.all(10),
-                    onPressed: this.onPressedWhatsapp,
-                    child: Icon(
-                      FontAwesomeIcons.whatsapp,
-                      color: Colors.green,
-                    ),
-                  ),
-                ),
+              // //BOTÃO LIGAR
+              // if (this.onPressedLigacao != null)
+              //   Expanded(
+              //     flex: 1,
+              //     child: MaterialButton(
+              //       //color: Colors.red,
+              //       padding: EdgeInsets.all(10),
+              //       onPressed: this.onPressedLigacao,
+              //       child: Icon(FontAwesomeIcons.phone, color: Colors.green),
+              //     ),
+              //   ),
+              //
+              // //BOTÃO WHATSAPP
+              // if (this.onPressedWhatsapp != null)
+              //   Expanded(
+              //     flex: 1,
+              //     child: MaterialButton(
+              //       //color: Colors.red,
+              //       padding: EdgeInsets.all(10),
+              //       onPressed: this.onPressedWhatsapp,
+              //       child: Icon(
+              //         FontAwesomeIcons.whatsapp,
+              //         color: Colors.green,
+              //       ),
+              //     ),
+              //   ),
             ],
           ),
         ),

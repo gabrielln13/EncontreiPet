@@ -7,8 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'Anuncios.dart';
-
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
@@ -18,27 +16,13 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
 
-  TextEditingController _controllerEmail = TextEditingController(text: "gabrielln13@gmail.com");
-  TextEditingController _controllerSenha = TextEditingController(text: "1234567");
 
-  bool _cadastrar = false;
+  TextEditingController _controllerEmail = TextEditingController();
+  TextEditingController _controllerSenha = TextEditingController();
+
   String _mensagemErro = "";
   String _textoBotao = "Entrar";
 
-//   _cadastrarUsuario(Usuario usuario){
-//
-//   FirebaseAuth auth = FirebaseAuth.instance;
-//
-//   auth.createUserWithEmailAndPassword(
-//   email: usuario.email,
-//   password: usuario.senha
-//   ).then((FirebaseUser){
-//
-//     //redireciona para tela principal
-//     Navigator.pushReplacementNamed(context, "/");
-//
-//   });
-// }
   _logarUsuario(Usuario usuario){
 
     FirebaseAuth auth = FirebaseAuth.instance;
@@ -55,6 +39,11 @@ class _LoginState extends State<Login> {
               builder: (context) => Dashboard()
           )
       );
+    }).catchError((error){
+
+      setState(() {
+        _mensagemErro = "Erro ao autenticar usuário, verifique e-mail e senha e tente novamente!";
+      });
 
     });
 }
@@ -72,14 +61,7 @@ class _LoginState extends State<Login> {
         usuario.senha = senha;
         usuario.email = email;
 
-        // //Cadastrar ou Logar
-        // if(_cadastrar){
-        //   //Cadastrar
-        //   _cadastrarUsuario(usuario);
-        // }else{
-        //   //Logar
-          _logarUsuario(usuario);
-        // }
+        _logarUsuario(usuario);
 
       } else {
         setState(() {

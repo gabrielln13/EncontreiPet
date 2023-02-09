@@ -167,4 +167,29 @@ class Configuracoes {
     }
     return idade;
   }
+
+  // Configuraçoes para ESTADOS
+  static List<DropdownMenuItem<String>> getEstados(){
+
+    List<DropdownMenuItem<String>> listaItensDropEstados = [];
+
+    //ITENS
+    listaItensDropEstados.add(
+        DropdownMenuItem(child: Text(
+          "UF", style: TextStyle(
+            color: Color(0xff2BBDEE)
+        ),
+        ), value: null,)
+    );
+
+    for( var estado in Estados.listaEstadosSigla ){
+      listaItensDropEstados.add(
+          DropdownMenuItem(child: Text(estado), value: estado,)
+      );
+    }
+
+    return listaItensDropEstados;
+
+  }
+
 }

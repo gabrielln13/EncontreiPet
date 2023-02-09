@@ -188,7 +188,8 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
                 ),
 
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 4),
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: Divider(),
                 ),
 
                 //RAÇA
@@ -243,25 +244,22 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
                   ],
                 ),
 
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  child: Divider(),
-                ),
 
-                Text(
-                  "Outras Informações",
-                  style: GoogleFonts.lato(
-                    textStyle: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: temaPadrao.primaryColor
-                    ),
-                  ),
-                ),
 
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8),
-                ),
+                // Text(
+                //   "Outras Informações",
+                //   style: GoogleFonts.lato(
+                //     textStyle: TextStyle(
+                //         fontSize: 22,
+                //         fontWeight: FontWeight.bold,
+                //         color: temaPadrao.primaryColor
+                //     ),
+                //   ),
+                // ),
+
+                // Padding(
+                //   padding: EdgeInsets.symmetric(vertical: 8),
+                // ),
 
                 //PORTE
                 Row(
@@ -288,7 +286,8 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
                 ),
 
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 4),
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: Divider(),
                 ),
 
                 //TEMPERAMENTO
@@ -345,6 +344,35 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
 
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 4),
+                ),
+
+                //NÚMERO CHIP
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Código Chip:",
+                      style: GoogleFonts.lato( textStyle: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                      ),
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                    Text(
+                      " ${_anuncio.numeroChip}",
+                      style: GoogleFonts.lato( textStyle: TextStyle(
+                        fontSize: 18,
+                      ),
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: Divider(),
                 ),
 
                 //VACINAÇÃO
@@ -408,7 +436,7 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(bottom: 80),
+                      padding: EdgeInsets.only(bottom: 16),
                       child: Text(
                         "Descrição:",
                         style: GoogleFonts.lato( textStyle: TextStyle(
@@ -421,7 +449,7 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
                     ),
                     Flexible(
                       child: Padding(
-                        padding: EdgeInsets.only(bottom: 80),
+                        padding: EdgeInsets.only(bottom: 16),
                         child: Text.rich(
                           TextSpan(
                             text: " ${_anuncio.descricao}",
@@ -438,7 +466,220 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
                 ),
 
                 Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: Divider(),
+                ),
+
+                Text(
+                  "Localização do Pet",
+                  style: GoogleFonts.lato(
+                    textStyle: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: temaPadrao.primaryColor
+                    ),
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                ),
+
+                //ESTADO
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Estado:",
+                      style: GoogleFonts.lato( textStyle: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                      ),
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                    Text(
+                      " ${_anuncio.uf}",
+                      style: GoogleFonts.lato( textStyle: TextStyle(
+                        fontSize: 18,
+                      ),
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
+
+                Padding(
                   padding: EdgeInsets.symmetric(vertical: 4),
+                ),
+
+                //CEP
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "CEP:",
+                      style: GoogleFonts.lato( textStyle: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                      ),
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                    Text(
+                      " ${_anuncio.cep}",
+                      style: GoogleFonts.lato( textStyle: TextStyle(
+                        fontSize: 18,
+                      ),
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 4),
+                ),
+
+                //CIDADE
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Cidade:",
+                      style: GoogleFonts.lato( textStyle: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                      ),
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                    Text(
+                      " ${_anuncio.cidade}",
+                      style: GoogleFonts.lato( textStyle: TextStyle(
+                        fontSize: 18,
+                      ),
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 4),
+                ),
+
+                //BAIRRO
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Bairro:",
+                      style: GoogleFonts.lato( textStyle: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                      ),
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                    Text(
+                      " ${_anuncio.bairro}",
+                      style: GoogleFonts.lato( textStyle: TextStyle(
+                        fontSize: 18,
+                      ),
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 4),
+                ),
+
+                //QUADRA
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Quadra:",
+                      style: GoogleFonts.lato( textStyle: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                      ),
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                    Text(
+                      " ${_anuncio.quadra}",
+                      style: GoogleFonts.lato( textStyle: TextStyle(
+                        fontSize: 18,
+                      ),
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 4),
+                ),
+
+                //LOTE
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Lote:",
+                      style: GoogleFonts.lato( textStyle: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                      ),
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                    Text(
+                      " ${_anuncio.lote}",
+                      style: GoogleFonts.lato( textStyle: TextStyle(
+                        fontSize: 18,
+                      ),
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 4),
+                ),
+
+                //NUMERO
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Número:",
+                      style: GoogleFonts.lato( textStyle: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                      ),
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                    Text(
+                      " ${_anuncio.numero}",
+                      style: GoogleFonts.lato( textStyle: TextStyle(
+                        fontSize: 18,
+                      ),
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: Divider(),
                 ),
 
                 //DATA CADASTRO
@@ -473,7 +714,12 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
                       ),
                     ),
                   ],
-                )
+                ),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: Divider(),
+                ),
 
               ],),
           )

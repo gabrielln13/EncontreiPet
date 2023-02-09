@@ -13,6 +13,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:validadores/validadores.dart';
 import 'package:flutter/services.dart';
+import '../main.dart';
 import '../models/Anuncio.dart';
 import '../util/Configuracoes.dart';
 import 'package:path/path.dart' as path;
@@ -37,9 +38,17 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
   TextEditingController _idadeController = TextEditingController();
   TextEditingController _doencaController = TextEditingController();
   TextEditingController _vacinacaoController = TextEditingController();
+  TextEditingController _cepController = TextEditingController();
+  TextEditingController _cidadeController = TextEditingController();
+  TextEditingController _bairroController = TextEditingController();
+  TextEditingController _logradouroController = TextEditingController();
+  TextEditingController _quadraController = TextEditingController();
+  TextEditingController _numeroController = TextEditingController();
+  TextEditingController _loteController = TextEditingController();
+  TextEditingController _numeroChipController = TextEditingController();
 
   List<File> _listaImagens = [];
-  // List<DropdownMenuItem<String>> _listaItensDropEstados = [];
+  List<DropdownMenuItem<String>> _listaItensDropEstados = [];
   List<DropdownMenuItem<String>> _listaItensDropPorte = [];
   List<DropdownMenuItem<String>> _listaItensDropEspecie = [];
   List<DropdownMenuItem<String>> _listaItensDropTemperamento = [];
@@ -50,7 +59,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
   late Anuncio _anuncio;
   late BuildContext _dialogContext;
 
-  // String? _itemSelecionadoEstado;
+  String? _itemSelecionadoEstado;
   String? _itemSelecionadoPorte;
   String? _itemSelecionadoEspecie;
   String? _itemSelecionadoTemperamento;
@@ -93,7 +102,8 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
     _listaItensDropSexo = Configuracoes.getSexo();
     //Lista de itens SITUAÇÃO
     _listaItensDropSituacao = Configuracoes.getSituacao();
-
+    //Lista de itens ESTADOS
+    _listaItensDropEstados = Configuracoes.getEstados();
   }
 
   _recuperarAnuncio() async {
@@ -125,12 +135,21 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
     _idadeController.text = _anuncio.idade;
     _doencaController.text = _anuncio.doenca;
     _vacinacaoController.text = _anuncio.vacinacao;
+    _cepController.text = _anuncio.cep;
+    _cidadeController.text = _anuncio.cidade;
+    _bairroController.text = _anuncio.bairro;
+    _logradouroController.text = _anuncio.logradouro;
+    _quadraController.text = _anuncio.quadra;
+    _numeroController.text = _anuncio.numero;
+    _loteController.text = _anuncio.lote;
+    _numeroChipController.text = _anuncio.numeroChip;
     _itemSelecionadoEspecie = _anuncio.especie;
     _itemSelecionadoTemperamento = _anuncio.temperamento;
     _itemSelecionadoChip = _anuncio.chip;
     _itemSelecionadoPorte = _anuncio.porte;
     _itemSelecionadoSexo = _anuncio.sexo;
     _itemSelecionadoSituacao = _anuncio.situacao;
+    _itemSelecionadoEstado = _anuncio.uf;
     _listaImagens = await _carregarImagensAnuncio(_anuncio.fotos);
     print('debug:::: >>>>  $_listaImagens');
   }
@@ -152,12 +171,6 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
     await file.writeAsBytes(response.bodyBytes);
     return file;
   }
-
-
-
-
-
-
 
   _atualizarAnuncio() async {
 
@@ -678,6 +691,20 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
                     upperFirstLetter: true,
+                    controller: _numeroChipController,
+                    labelText: "Código do Chip",
+                    hint: "Código do Chip (Caso possua)",
+                    onSaved: (numeroChip){
+                      _anuncio.numeroChip = numeroChip.toString();
+                    },
+                    maxLines: null,
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.only(bottom: 15),
+                  child: InputCustomizado(
+                    upperFirstLetter: true,
                     controller: _vacinacaoController,
                     labelText: "Vacinação",
                     hint: "Vacinação (Descreva as vacinas)",
@@ -702,10 +729,202 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                     labelText: "Doenças",
                     hint: "Doenças (Descreva as doenças, se houver)",
                     onSaved: (doenca){
-                      _anuncio?.doenca = doenca.toString();
+                      _anuncio.doenca = doenca.toString();
                     },
                     maxLines: null,
                   ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: Divider(),
+                ),
+
+                Text(
+                  "Endereço",
+                  style: GoogleFonts.lato(
+                    textStyle: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: temaPadrao.primaryColor),
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                ),
+
+                // COMBO UF
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(8),
+                        child: DropdownButtonFormField(
+                          value: _itemSelecionadoEstado,
+                          hint: Text("UF"),
+                          onSaved: (uf){
+                            _anuncio.uf = uf.toString();
+                          },
+                          style: GoogleFonts.lato( textStyle: TextStyle(
+                              color: Colors.black,
+                              fontSize:16
+                          ),
+                          ),
+                          items: _listaItensDropEstados,
+                          validator: (valor){
+                            return Validador()
+                                .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
+                                .valido(valor as String);
+                          },
+                          onChanged: (valor){
+                            setState(() {
+                              _itemSelecionadoSexo = valor as String;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                Padding(
+                  padding: EdgeInsets.only(bottom: 15),
+                  child: InputCustomizado(
+                    upperFirstLetter: false,
+                    controller: _cepController,
+                    labelText: "CEP",
+                    hint: "CEP",
+                    onSaved: (cep){
+                      _anuncio.cep = cep.toString();
+                    },
+                    maxLines: 1,
+                    type: TextInputType.number,
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.only(bottom: 15),
+                  child: InputCustomizado(
+                    upperFirstLetter: true,
+                    controller: _cidadeController,
+                    labelText: "Cidade",
+                    hint: "Cidade",
+                    onSaved: (cidade){
+                      _anuncio.cidade = cidade.toString();
+                    },
+                    maxLines: 1,
+                    type: TextInputType.text,
+                    validator: (valor){
+                      return Validador()
+                          .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
+                          .valido(valor as String);
+                    },
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.only(bottom: 15),
+                  child: InputCustomizado(
+                    upperFirstLetter: true,
+                    controller: _bairroController,
+                    labelText: "Bairro",
+                    hint: "Bairro",
+                    onSaved: (bairro){
+                      _anuncio.bairro = bairro.toString();
+                    },
+                    maxLines: 1,
+                    type: TextInputType.text,
+                    validator: (valor){
+                      return Validador()
+                          .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
+                          .valido(valor as String);
+                    },
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.only(bottom: 15),
+                  child: InputCustomizado(
+                    upperFirstLetter: true,
+                    controller: _logradouroController,
+                    labelText: "Logradouro",
+                    hint: "Logradouro",
+                    onSaved: (logradouro){
+                      _anuncio.logradouro = logradouro.toString();
+                    },
+                    maxLines: 1,
+                    type: TextInputType.text,
+                    validator: (valor){
+                      return Validador()
+                          .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
+                          .valido(valor as String);
+                    },
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.only(bottom: 15),
+                  child: InputCustomizado(
+                    upperFirstLetter: true,
+                    controller: _quadraController,
+                    labelText: "Quadra",
+                    hint: "Quadra",
+                    onSaved: (quadra){
+                      _anuncio.quadra = quadra.toString();
+                    },
+                    maxLines: 1,
+                    type: TextInputType.text,
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.only(bottom: 15),
+                  child: InputCustomizado(
+                    upperFirstLetter: true,
+                    controller: _loteController,
+                    labelText: "Lote",
+                    hint: "Lote",
+                    onSaved: (lote){
+                      _anuncio.lote = lote.toString();
+                    },
+                    maxLines: 1,
+                    type: TextInputType.text,
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.only(bottom: 15),
+                  child: InputCustomizado(
+                    upperFirstLetter: false,
+                    controller: _numeroController,
+                    labelText: "Número",
+                    hint: "Número",
+                    onSaved: (numero){
+                      _anuncio.numero = numero.toString();
+                    },
+                    maxLines: 1,
+                    type: TextInputType.number,
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: Divider(),
+                ),
+
+                Text(
+                  "Descrição",
+                  style: GoogleFonts.lato(
+                    textStyle: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: temaPadrao.primaryColor),
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8),
                 ),
 
                 Padding(
@@ -716,7 +935,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                     labelText: "Descrição",
                     hint: "Descrição (Campo livre)",
                     onSaved: (descricao){
-                      _anuncio?.descricao = descricao.toString();
+                      _anuncio.descricao = descricao.toString();
                     },
                     maxLines: null,
                   ),
