@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:encontrei_pet/main.dart';
 import 'package:encontrei_pet/views/widgets/ItemAnuncio.dart';
@@ -17,7 +16,6 @@ class Anuncios extends StatefulWidget {
 }
 
 class _AnunciosState extends State<Anuncios> {
-  // List<String> itensMenu = [];
   late List<DropdownMenuItem<String>> _listaItensDropPorte;
   late List<DropdownMenuItem<String>> _listaItensDropChip;
   late List<DropdownMenuItem<String>> _listaItensDropSexo;

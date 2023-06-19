@@ -1,6 +1,4 @@
 import 'dart:math';
-
-import 'package:brasil_fields/brasil_fields.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:encontrei_pet/views/widgets/BotaoCustomizado.dart';
 import 'package:encontrei_pet/views/widgets/InputCustomizado.dart';
@@ -216,17 +214,6 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
     }
     return listaUrls;
   }
-
-  // _uploadImagem(File imagem) async {
-  //   var nomeImagem = "${DateTime.now().millisecondsSinceEpoch}";
-  //   var caminhoRelativo = path.joinAll(['meus_anuncios',_anuncio.id, nomeImagem]);
-  //   var ref = FirebaseStorage.instance.ref().child(caminhoRelativo);
-  //   var uploadTask = ref.putFile(imagem);
-  //
-  //   var url = await (await uploadTask).ref.getDownloadURL();
-  //   return url;
-  // }
-
 
   _uploadImagem(File imagem) async {
     var nomeImagem = "${DateTime.now().millisecondsSinceEpoch}";
@@ -611,7 +598,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15, top: 15),
                   child: InputCustomizado(
-                    upperFirstLetter: true,
+                    // upperFirstLetter: true,
                     labelText: "Nome",
                     controller: _nomeController,
                     hint: "Nome",
@@ -630,7 +617,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
-                    upperFirstLetter: true,
+                    // upperFirstLetter: true,
                     controller: _corController,
                     labelText: "Cor",
                     hint: "Cor",
@@ -650,7 +637,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
-                    upperFirstLetter: true,
+                    // upperFirstLetter: true,
                     controller: _racaController,
                     labelText: "Raça",
                     hint: "Raça",
@@ -670,7 +657,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
-                    upperFirstLetter: false,
+                    // upperFirstLetter: false,
                     controller: _idadeController,
                     labelText: "Idade",
                     hint: "Idade Aproximada",
@@ -690,7 +677,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
-                    upperFirstLetter: true,
+                    // upperFirstLetter: true,
                     controller: _numeroChipController,
                     labelText: "Código do Chip",
                     hint: "Código do Chip (Caso possua)",
@@ -704,7 +691,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
-                    upperFirstLetter: true,
+                    // upperFirstLetter: true,
                     controller: _vacinacaoController,
                     labelText: "Vacinação",
                     hint: "Vacinação (Descreva as vacinas)",
@@ -724,7 +711,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
-                    upperFirstLetter: true,
+                    // upperFirstLetter: true,
                     controller: _doencaController,
                     labelText: "Doenças",
                     hint: "Doenças (Descreva as doenças, se houver)",
@@ -791,7 +778,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
-                    upperFirstLetter: false,
+                    // upperFirstLetter: false,
                     controller: _cepController,
                     labelText: "CEP",
                     hint: "CEP",
@@ -806,7 +793,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
-                    upperFirstLetter: true,
+                    // upperFirstLetter: true,
                     controller: _cidadeController,
                     labelText: "Cidade",
                     hint: "Cidade",
@@ -826,7 +813,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
-                    upperFirstLetter: true,
+                    // upperFirstLetter: true,
                     controller: _bairroController,
                     labelText: "Bairro",
                     hint: "Bairro",
@@ -846,7 +833,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
-                    upperFirstLetter: true,
+                    // upperFirstLetter: true,
                     controller: _logradouroController,
                     labelText: "Logradouro",
                     hint: "Logradouro",
@@ -866,7 +853,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
-                    upperFirstLetter: true,
+                    // upperFirstLetter: true,
                     controller: _quadraController,
                     labelText: "Quadra",
                     hint: "Quadra",
@@ -881,7 +868,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
-                    upperFirstLetter: true,
+                    // upperFirstLetter: true,
                     controller: _loteController,
                     labelText: "Lote",
                     hint: "Lote",
@@ -896,7 +883,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
-                    upperFirstLetter: false,
+                    // upperFirstLetter: false,
                     controller: _numeroController,
                     labelText: "Número",
                     hint: "Número",
@@ -930,7 +917,7 @@ class _EditarAnuncioState extends State<EditarAnuncio> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
-                    upperFirstLetter: true,
+                    // upperFirstLetter: true,
                     controller: _descricaoController,
                     labelText: "Descrição",
                     hint: "Descrição (Campo livre)",

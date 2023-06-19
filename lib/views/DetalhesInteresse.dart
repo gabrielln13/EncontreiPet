@@ -7,12 +7,10 @@ import 'package:encontrei_pet/models/Anuncio.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-
 class DetalhesInteresse extends StatefulWidget {
 
   Anuncio anuncio;
   DetalhesInteresse(this.anuncio);
-
 
   @override
   _DetalhesInteresseState createState() => _DetalhesInteresseState();
@@ -22,7 +20,6 @@ class _DetalhesInteresseState extends State<DetalhesInteresse> {
 
 
   late Anuncio _anuncio;
-  // String _mensagemErro = "";
 
   List<Widget> _getListaImagens(){
 
@@ -165,14 +162,6 @@ class _DetalhesInteresseState extends State<DetalhesInteresse> {
                   ],
                 ),
 
-                // Text(
-                //   "Sexo: ${_anuncio.sexo}",
-                //   style: TextStyle(
-                //       fontSize: 18,
-                //       fontWeight: FontWeight.w400
-                //   ),
-                // ),
-
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 4),
                 ),
@@ -201,14 +190,6 @@ class _DetalhesInteresseState extends State<DetalhesInteresse> {
                   ],
                 ),
 
-                // Text(
-                //   "Raça: ${_anuncio.raca}",
-                //   style: TextStyle(
-                //       fontSize: 18,
-                //       fontWeight: FontWeight.w400
-                //   ),
-                // ),
-
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 4),
                 ),
@@ -236,13 +217,6 @@ class _DetalhesInteresseState extends State<DetalhesInteresse> {
                     ),
                   ],
                 ),
-
-                // Text(
-                //   "Cor: ${_anuncio.cor}",
-                //   style: TextStyle(
-                //       fontSize: 18
-                //   ),
-                // ),
 
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 16),
@@ -323,13 +297,6 @@ class _DetalhesInteresseState extends State<DetalhesInteresse> {
                   ],
                 ),
 
-                // Text(
-                //   "Temperamento: ${_anuncio.temperamento}",
-                //   style: TextStyle(
-                //       fontSize: 18
-                //   ),
-                // ),
-
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 4),
                 ),
@@ -357,13 +324,6 @@ class _DetalhesInteresseState extends State<DetalhesInteresse> {
                     ),
                   ],
                 ),
-
-                // Text(
-                //   "Chip: ${_anuncio.chip}",
-                //   style: TextStyle(
-                //       fontSize: 18
-                //   ),
-                // ),
 
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 4),
@@ -427,13 +387,6 @@ class _DetalhesInteresseState extends State<DetalhesInteresse> {
                     ),
                   ],
                 ),
-
-                // Text(
-                //   "Doenças: ${_anuncio.doenca}",
-                //   style: TextStyle(
-                //       fontSize: 18
-                //   ),
-                // ),
 
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 4),
@@ -540,8 +493,6 @@ class _DetalhesInteresseState extends State<DetalhesInteresse> {
               ),
             ),
             onTap: () async {
-              // Navigator.pushNamed(context, "/interesse-adocao");
-
               FirebaseAuth auth = FirebaseAuth.instance;
               //User? usuarioLogado = !;
               if (await auth.currentUser != null) {
@@ -552,7 +503,7 @@ class _DetalhesInteresseState extends State<DetalhesInteresse> {
                     )
                 );
               } else {
-                // exibir mensagem de erro para o usuário
+                // exibir mensagem de erro
                 setState(() {
 
                   showDialog(
@@ -590,23 +541,11 @@ class _DetalhesInteresseState extends State<DetalhesInteresse> {
                     ),
                     ),
                   );
-
-
-
                 });
               }
-
             },
           ),
         ),
-        // Padding(
-        //   padding: EdgeInsets.only(top: 20),
-        //   child: Text(_mensagemErro, style: TextStyle(
-        //       fontSize: 18,
-        //       fontWeight: FontWeight.bold,
-        //       color: Colors.red
-        //   ),),
-        // ),
       ],),
     );
   }

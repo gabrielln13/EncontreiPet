@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_utils/src/get_utils/get_utils.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:validadores/Validador.dart';
 import '../models/Usuario.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -24,7 +23,6 @@ class _NovoUsuarioState extends State<NovoUsuario> {
   TextEditingController _controllerTelefone = TextEditingController();
   TextEditingController _controllerCpf = TextEditingController();
 
-  // bool _cadastrar = true;
   String _mensagemErro = "";
   String _textoBotao = "Cadastrar";
 
@@ -126,7 +124,6 @@ class _NovoUsuarioState extends State<NovoUsuario> {
         elevation: 0,
       ),
       body: Container(
-        // decoration: BoxDecoration(color: Color(0xffeeeef3)),
         padding: EdgeInsets.all(16),
         child: Center(
           child: SingleChildScrollView(
@@ -146,7 +143,7 @@ class _NovoUsuarioState extends State<NovoUsuario> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 8),
                   child: InputCustomizado(
-                    upperFirstLetter: true,
+                    // upperFirstLetter: true,
                     controller: _controllerNome,
                     hint: "Nome",
                     autofocus: true,
@@ -159,12 +156,12 @@ class _NovoUsuarioState extends State<NovoUsuario> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 8),
                   child: InputCustomizado(
-                    upperFirstLetter: false,
+                    // upperFirstLetter: false,
                     controller: _controllerCpf,
                     hint: "CPF",
                     autofocus: true,
                     maxLines: 1,
-                    type: TextInputType.text,
+                    type: TextInputType.number,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
                       CpfInputFormatter()
@@ -175,12 +172,12 @@ class _NovoUsuarioState extends State<NovoUsuario> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 8),
                   child: InputCustomizado(
-                    upperFirstLetter: false,
+                    // upperFirstLetter: false,
                     controller: _controllerTelefone,
                     hint: "Telefone",
                     autofocus: true,
                     maxLines: 1,
-                    type: TextInputType.text,
+                    type: TextInputType.number,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
                       TelefoneInputFormatter()
@@ -191,7 +188,7 @@ class _NovoUsuarioState extends State<NovoUsuario> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 8),
                   child: InputCustomizado(
-                    upperFirstLetter: false,
+                    // upperFirstLetter: false,
                     controller: _controllerEmail,
                     hint: "E-mail",
                     autofocus: true,
@@ -203,7 +200,7 @@ class _NovoUsuarioState extends State<NovoUsuario> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 8),
                   child: InputCustomizado(
-                    upperFirstLetter: false,
+                    // upperFirstLetter: false,
                     controller: _controllerSenha,
                     hint: "Senha",
                     obscure: true,

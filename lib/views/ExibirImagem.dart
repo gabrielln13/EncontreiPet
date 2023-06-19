@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class ExibirImagem extends StatelessWidget {
-  // const ExibirImagem({Key? key}) : super(key: key);
 
   final String urlImagem;
 

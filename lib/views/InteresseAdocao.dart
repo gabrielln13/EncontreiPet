@@ -48,18 +48,17 @@ class _InteresseAdocaoState extends State<InteresseAdocao> {
 
   }
 
+  //Salvar interesse no Firestore
   _salvarInteresse() async {
     _abrirDialog(_dialogContext);
-    //Salvar anuncio no Firestore
     FirebaseAuth auth = FirebaseAuth.instance;
     User? usuarioLogado = await auth.currentUser!;
     if (usuarioLogado == null) {
-      // exibir mensagem de erro para o usuário
+      // exibir erro
       setState(() {
         _mensagemErro = "Favor realizar login para completar essa ação.";
       });
     } else {
-      // prosseguir com o código normalmente
       String idUsuarioLogado = usuarioLogado.uid;
 
       FirebaseFirestore db = FirebaseFirestore.instance;
@@ -74,7 +73,7 @@ class _InteresseAdocaoState extends State<InteresseAdocao> {
       _interesse.id = interesseRef.id;
       _interesse.idAnuncio = _anuncio.id;
 
-      // Adiciona o interesse na coleção de interesses do anuncio
+      // Adiciona o interesse na coleção
       interesseRef.set(_interesse.toMap());
       // Adiciona uma referência do interesse na coleção de interesses do usuário
       db.collection("usuarios")
@@ -85,27 +84,26 @@ class _InteresseAdocaoState extends State<InteresseAdocao> {
         'idInteresse': _interesse.id,
         'idAnuncio': _anuncio.id
       }).then((_) {
-        // Busca o email do usuário que cadastrou o anuncio
+        //Busca o email do usuário que cadastrou o anuncio
         db.collection("usuarios").doc(_anuncio.idUsuario).get().then((document) async {
           var emailUsuarioAnuncio = document.data()!["email"];
-          // var nomeUsuarioAnuncio = document.data()!["nome"];
 
-          // Busca o nome do usuário que se interessou no anuncio
+          //Busca o nome do usuário que se interessou no anuncio
           db.collection("usuarios").doc(_interesse.idUsuarioInteressado).get().then((document) async {
             var nomeUsuarioAnuncio = document.data()!["nome"];
 
-          // Busca o nome do pet
+          //Busca o nome do pet
           db.collection("anuncios").doc(_anuncio.id).get().then((document) async {
             var nomePet = document.data()!["nome"];
 
-            // aqui você pode usar uma biblioteca como o "dart:io" ou um serviço de envio de email para enviar o email para o usuário.
-            // exemplo de como enviar email com a biblioteca "dart:io"
+            //Enviar email com a biblioteca para o anunciante
             final options = new GmailSmtpOptions()
-              ..username = 'encontreipet@gmail.com'
-              ..password = 'wiqvcftffzqilnzy';
+            //Configurar conta de envio
+              ..username = '<Email de envio>'
+              ..password = '<Senha do email de envio>';
             var emailTransport = new SmtpTransport(options);
             var envelope = new Envelope()
-              ..from = 'encontreipet@gmail.com'
+              ..from = '<Email de envio>'
               ..recipients.add(emailUsuarioAnuncio)
               ..subject = 'Interesse na Adoção do Pet "'+nomePet+'".'
               ..text = 'EncontreiPet \n\nO usuário '+nomeUsuarioAnuncio+' demonstrou interesse na adoção do seu pet "'+nomePet+'". Acesse o aplicativo e confira.';
@@ -162,7 +160,7 @@ class _InteresseAdocaoState extends State<InteresseAdocao> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InputCustomizado(
-                    upperFirstLetter: true,
+                    // upperFirstLetter: true,
                     controller: _descricaoController,
                     hint: "Qual o motivo do seu interesse?",
                     onSaved: (descricao){

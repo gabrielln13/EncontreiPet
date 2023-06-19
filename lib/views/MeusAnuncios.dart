@@ -100,7 +100,6 @@ class _MeusAnunciosState extends State<MeusAnuncios> {
         elevation: 0,
       ),
       floatingActionButton: FloatingActionButton(
-//         //backgroundColor: Color.fromARGB(250, 255, 179, 0),
          foregroundColor: Colors.white,
          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(2.0))),
          child: Icon(Icons.add),

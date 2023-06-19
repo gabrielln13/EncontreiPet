@@ -1,19 +1,12 @@
 import 'dart:async';
-import 'dart:collection';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:encontrei_pet/main.dart';
-import 'package:encontrei_pet/views/widgets/ItemAnuncio.dart';
 import 'package:encontrei_pet/views/widgets/ItemInteresse.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/link.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../models/Anuncio.dart';
 import '../models/Interesse.dart';
-import '../util/Configuracoes.dart';
 
 class Interesses extends StatefulWidget {
 

@@ -6,15 +6,12 @@ import 'package:encontrei_pet/main.dart';
 import 'package:encontrei_pet/models/Anuncio.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-
 import 'ExibirImagem.dart';
-
 
 class DetalhesAnuncio extends StatefulWidget {
 
   Anuncio anuncio;
   DetalhesAnuncio(this.anuncio);
-
 
   @override
   _DetalhesAnuncioState createState() => _DetalhesAnuncioState();
@@ -22,9 +19,7 @@ class DetalhesAnuncio extends StatefulWidget {
 
 class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
 
-
   late Anuncio _anuncio;
-  // String _mensagemErro = "";
 
   List<Widget> _getListaImagens() {
     List<String> listaUrlImagens = _anuncio.fotos;
@@ -726,33 +721,6 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
 
         ],),
 
-        //Exemplo de Ligação
-        // Positioned(
-        //   left: 16,
-        //   right: 16,
-        //   bottom: 16,
-        //   child: GestureDetector(
-        //     child: Container(
-        //       child: Text(
-        //         "Ligar",
-        //         style: TextStyle(
-        //             color: Colors.white,
-        //             fontSize: 20
-        //         ),
-        //       ),
-        //       padding: EdgeInsets.all(16),
-        //       alignment: Alignment.center,
-        //       decoration: BoxDecoration(
-        //           color: temaPadrao.primaryColor,
-        //           borderRadius: BorderRadius.circular(30)
-        //       ),
-        //     ),
-        //     onTap: (){
-        //       _ligarTelefone(_anuncio.telefone);
-        //     },
-        //   ),
-        // ),
-
         Positioned(
           left: 16,
           right: 16,
@@ -794,54 +762,42 @@ class _DetalhesAnuncioState extends State<DetalhesAnuncio> {
                     context: context,
                     builder: (context) => AlertDialog(
                       content: SingleChildScrollView(
-                      child: Column(
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              IconButton(
-                                icon: Icon(Icons.close),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          ),
-                          Text("Favor realizar login para completar essa ação."),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              MaterialButton(
-                                child: Text("Fazer Login"),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                  Navigator.pushNamed(context, '/login');
-                                },
-                              ),
-                            ],
-                          )
-                        ],
+                        child: Column(
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                IconButton(
+                                  icon: Icon(Icons.close),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            ),
+                            Text("Favor realizar login para completar essa ação."),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                MaterialButton(
+                                  child: Text("Fazer Login"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    Navigator.pushNamed(context, '/login');
+                                  },
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    ),
                   );
-
-
-
                 });
               }
-
             },
           ),
         ),
-        // Padding(
-        //   padding: EdgeInsets.only(top: 20),
-        //   child: Text(_mensagemErro, style: TextStyle(
-        //       fontSize: 18,
-        //       fontWeight: FontWeight.bold,
-        //       color: Colors.red
-        //   ),),
-        // ),
       ],),
     );
   }

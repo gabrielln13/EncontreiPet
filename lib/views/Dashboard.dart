@@ -19,9 +19,6 @@ class _DashboardState extends State<Dashboard> {
 
     switch(itemEscolhido){
 
-    // case "Meus Anúncios" :
-    //   Navigator.pushNamed(context, "/meus-anuncios");
-    //   break;
       case "Logar / Cadastrar Usuário":
         Navigator.pushNamed(context, "/login");
         break;

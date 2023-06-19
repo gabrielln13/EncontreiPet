@@ -31,20 +31,6 @@ class DashboardAdocao extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 5),
               ),
 
-              // Padding(
-              //   padding: const EdgeInsets.all(7.0),
-              //   child: Text(
-              //     "Adoção",
-              //     style: GoogleFonts.lato( textStyle: TextStyle(
-              //         color: temaPadrao.primaryColor,
-              //         fontSize: 28.0,
-              //      //   fontWeight: FontWeight.bold
-              //     ),
-              //     ),
-              //     textAlign: TextAlign.start,
-              //   ),
-              // ),
-
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Center(
@@ -52,50 +38,6 @@ class DashboardAdocao extends StatelessWidget {
                     spacing:20,
                     runSpacing: 20.0,
                     children: <Widget>[
-
-                      //       InkWell(
-                      //         onTap: () {
-                      //           Navigator.pushNamed(
-                      //               context, "/anuncios",
-                      //           );
-                      //         },
-                      //         child: SizedBox(
-                      //         width:160.0,
-                      //         height: 160.0,
-                      //         child: Card(
-                      //           color: Colors.grey[50],
-                      //           elevation: 2.0,
-                      //           shape: RoundedRectangleBorder(
-                      //               borderRadius: BorderRadius.circular(8.0)
-                      //           ),
-                      //           child:Center(
-                      //               child: Padding(
-                      //                 padding: const EdgeInsets.all(8.0),
-                      //                 child: Column(
-                      //                   children: <Widget>[
-                      //                     Image.asset("imagens/adote.png",width:74.0,),
-                      //                     SizedBox(
-                      //                       height: 10.0,
-                      //                     ),
-                      //                     Text(
-                      //                       "Adote um pet",
-                      //                       style: GoogleFonts.lato( textStyle: TextStyle(
-                      //                           color: Colors.black,
-                      //                           fontWeight: FontWeight.bold,
-                      //                           fontSize: 20.0
-                      //                       ),
-                      //                       ),
-                      //                     ),
-                      //                   ],
-                      //                 ),
-                      //               )
-                      //           ),
-                      //         ),
-                      //       ),
-                      // ),
-
-
-
                       InkWell(
                         onTap: () {
                           Navigator.pushNamed(
@@ -132,51 +74,6 @@ class DashboardAdocao extends StatelessWidget {
                           ),
                         ),
                       ),
-
-
-
-                      // InkWell(
-                      //   onTap: () {
-                      //     Navigator.pushNamed(
-                      //       context, "/meus-anuncios",
-                      //     );
-                      //   },
-                      //   child: SizedBox(
-                      //     width:160.0,
-                      //     height: 160.0,
-                      //     child: Card(
-                      //       color: Colors.grey[50],
-                      //       elevation: 2.0,
-                      //       shape: RoundedRectangleBorder(
-                      //           borderRadius: BorderRadius.circular(8.0)
-                      //       ),
-                      //       child:Center(
-                      //           child: Padding(
-                      //             padding: const EdgeInsets.all(8.0),
-                      //             child: Column(
-                      //               children: <Widget>[
-                      //                 Image.asset("imagens/cadastropet.png",width:74.0,),
-                      //                 SizedBox(
-                      //                   height: 10.0,
-                      //                 ),
-                      //                 Text(
-                      //                   "Meus Anúncios",
-                      //                   textAlign: TextAlign.center,
-                      //                   style: GoogleFonts.lato( textStyle: TextStyle(
-                      //                       color: Colors.black,
-                      //                       fontWeight: FontWeight.bold,
-                      //                       fontSize: 20.0
-                      //                   ),
-                      //                   ),
-                      //                 ),
-                      //               ],
-                      //             ),
-                      //           ),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-
 
                       InkWell(
                         onTap: () async {

@@ -105,13 +105,6 @@ class ItemAnuncio extends StatelessWidget {
                       ],
                     ),
 
-                    // Text(
-                    //   "Idade: ${anuncio.idade} Anos ",
-                    //   style: TextStyle(
-                    //     fontSize: 16,
-                    //   ),
-                    // ),
-
                     //IDADE
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,13 +129,6 @@ class ItemAnuncio extends StatelessWidget {
                       ],
                     ),
 
-                    // Text(
-                    //   "Sexo: ${anuncio.sexo}",
-                    //   style: TextStyle(
-                    //     fontSize: 16,
-                    //   ),
-                    // ),
-
                     //SEXO
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -166,30 +152,6 @@ class ItemAnuncio extends StatelessWidget {
                         ),
                       ],
                     ),
-
-                    // //SITUAÇÃO
-                    // Row(
-                    //   crossAxisAlignment: CrossAxisAlignment.start,
-                    //   children: <Widget>[
-                    //     Text(
-                    //       "Status:",
-                    //       style: GoogleFonts.lato( textStyle: TextStyle(
-                    //           fontSize: 16,
-                    //           fontWeight: FontWeight.bold
-                    //       ),
-                    //       ),
-                    //       textAlign: TextAlign.left,
-                    //     ),
-                    //     Text(
-                    //       " ${anuncio.situacao}",
-                    //       style: GoogleFonts.lato( textStyle: TextStyle(
-                    //         fontSize: 16,
-                    //       ),
-                    //       ),
-                    //       textAlign: TextAlign.left,
-                    //     ),
-                    //   ],
-                    // ),
 
                 ],),
               ),

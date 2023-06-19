@@ -14,7 +14,7 @@ class InputCustomizado extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final FormFieldValidator<String>? validator;
   final FormFieldValidator<String>? onSaved;
-  final bool upperFirstLetter;
+  // final bool upperFirstLetter;
 
   InputCustomizado({
     Key? key,
@@ -28,7 +28,7 @@ class InputCustomizado extends StatelessWidget {
     this.validator,
     this.onSaved,
     this.labelText,
-    required this.upperFirstLetter
+    // required this.upperFirstLetter
   });
 
   @override

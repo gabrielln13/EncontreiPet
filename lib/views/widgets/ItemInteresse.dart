@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../main.dart';
-import '../../models/Anuncio.dart';
 import '../../models/Interesse.dart';
 import 'package:intl/intl.dart';
 
@@ -12,7 +11,6 @@ class ItemInteresse extends StatelessWidget {
   VoidCallback? onTapItem;
   VoidCallback? onPressedLigacao;
   VoidCallback? onPressedWhatsapp;
-  // VoidCallback? onPressedConfirmarDoacao;
   String? nomeUsuario;
   String? cpfUsuario;
   String? telefoneUsuario;
@@ -24,7 +22,6 @@ class ItemInteresse extends StatelessWidget {
       this.onTapItem,
       this.onPressedLigacao,
       this.onPressedWhatsapp
-      // this.onPressedConfirmarDoacao
       }) {
     FirebaseFirestore.instance
         .collection("usuarios")

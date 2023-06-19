@@ -5,7 +5,6 @@ import 'package:encontrei_pet/views/DashboardAdocao.dart';
 import 'package:encontrei_pet/views/DetalhesAnuncio.dart';
 import 'package:encontrei_pet/views/DetalhesInteresse.dart';
 import 'package:encontrei_pet/views/EditarAnuncio.dart';
-// import 'package:encontrei_pet/views/InteressadoAdocao.dart';
 import 'package:encontrei_pet/views/InteresseAdocao.dart';
 import 'package:encontrei_pet/views/Interesses.dart';
 import 'package:encontrei_pet/views/Login.dart';
@@ -80,18 +79,3 @@ class RouteGenerator{
     }
   }
 }
-//   static Route<dynamic> _erroRota(){
-//     return MaterialPageRoute(
-//         builder: (_){
-//           return Scaffold(
-//             appBar: AppBar(
-//               title: Text("Tela não encontrada!"),
-//             ),
-//             body: Center(
-//               child: Text("Tela não encontrada!"),
-//             ),
-//           );
-//     }
-//     );
-// }
-// }
